@@ -6,6 +6,7 @@ import Storage from './storage';
 export default class Page {
   constructor() {
     this.page = document.body;
+    this.tipCheckbox = this.page.querySelector('#tip');
     this.plus = this.page.querySelector('.title-container-plus');
     this.modalAddUpdate = this.page.querySelector('.modal-add-update');
     this.modalDelete = this.page.querySelector('.modal-delete');
@@ -196,6 +197,9 @@ export default class Page {
    */
   async update(full = false) {
     document.querySelectorAll('li.list-item').forEach((item) => item.remove());
+    if (this.tipCheckbox.checked) {
+      this.tipCheckbox.checked = false;
+    }
     this.dancer.classList.remove('hidden');
     if (full) {
       this.list = await Storage.request('fetch');
