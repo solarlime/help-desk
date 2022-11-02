@@ -3,7 +3,7 @@
 const Koa = require('koa');
 
 const app = new Koa();
-const koaBody = require('koa-body');
+const { koaBody } = require('koa-body');
 const koaCors = require('@koa/cors');
 const { MongoClient } = require('mongodb');
 
@@ -19,7 +19,7 @@ app.use(async (ctx) => {
   ctx.res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 
   const url = process.env.MONGO_URL;
-  const client = new MongoClient(url, { useUnifiedTopology: true });
+  const client = new MongoClient(url);
 
   // The database to use
   const dbName = 'help-desk';
@@ -45,12 +45,14 @@ app.use(async (ctx) => {
             if (document.done) {
               await col.updateOne({ id: document.id }, { $set: { done: document.done } });
             } else {
-              await col.updateOne({ id: document.id },
-                { $set: { name: document.name, description: document.description } });
+              await col.updateOne(
+                { id: document.id },
+                { $set: { name: document.name, description: document.description } },
+              );
             }
             return { status: 'Updated', data: '' };
           case 'delete':
-            await col.removeOne({ id: document.id });
+            await col.deleteOne({ id: document.id });
             return { status: 'Removed', data: '' };
           default:
             const data = await col.find().toArray();
