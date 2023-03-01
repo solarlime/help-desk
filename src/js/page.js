@@ -66,6 +66,7 @@ export default class Page {
       if (item.classList.value === 'list-item-actions-update') {
         this.targetRowId = item.closest('li').getAttribute('data-id');
         this.validity = { title: false, description: true };
+        this.save.disabled = true;
         Modals.show(this.modalAddUpdate, this.targetRowId, this.list.data);
       } else if (item.classList.value === 'list-item-actions-delete') {
         this.targetRowId = item.closest('li').getAttribute('data-id');
