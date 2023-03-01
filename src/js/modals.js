@@ -11,12 +11,16 @@ export default class Modals {
    * @param list (опционально): массив данных для изменения
    */
   static show(modal, rowId = undefined, list = undefined) {
+    const title = modal.querySelector('#title');
     if (rowId && list) {
       const target = list.find((item) => item.id.toString() === rowId);
-      modal.querySelector('#title').value = target.name;
+      if (title) title.value = target.name;
       modal.querySelector('#description').value = target.description;
       this.validity = { title: true, description: true };
+      setTimeout(() => { title.focus(); }, 0);
     }
+    // Simple title.focus() does not work. Why — don't know
+    if (title) setTimeout(() => { title.focus(); }, 0);
     Modals.toggle(modal, true);
   }
 
