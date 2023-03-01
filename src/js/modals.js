@@ -60,7 +60,11 @@ export default class Modals {
       Object.entries({ id: rowId, name, description })
         .forEach((field) => formData.append(field[0], field[1]));
       Modals.cancel(modal);
-      await Storage.request('update', formData);
+      try {
+        await Storage.request('update', formData);
+      } catch (e) {
+        alert('A problem with updating! Try to reload this page');
+      }
     } else {
       if (!list) {
         list = [];
@@ -85,7 +89,11 @@ export default class Modals {
       // Sending a request
       Object.entries(newbie).forEach((field) => formData.append(field[0], field[1]));
       Modals.cancel(modal);
-      await Storage.request('new', formData);
+      try {
+        await Storage.request('new', formData);
+      } catch (e) {
+        alert('A problem with adding! Try to reload this page');
+      }
     }
   }
 
@@ -102,7 +110,11 @@ export default class Modals {
     formData.append('id', rowId);
     list.splice(list.findIndex((item) => item.id === rowId), 1);
     Modals.cancel(modal);
-    await Storage.request('delete', formData);
+    try {
+      await Storage.request('delete', formData);
+    } catch (e) {
+      alert('A problem with deleting! Try to reload this page');
+    }
   }
 
   /**

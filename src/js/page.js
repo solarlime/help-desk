@@ -135,7 +135,11 @@ export default class Page {
     Object.entries({ id: row.getAttribute('data-id'), done: checkbox.checked })
       .forEach((field) => formData.append(field[0], field[1]));
     this.dancer.classList.remove('hidden');
-    await Storage.request('update', formData);
+    try {
+      await Storage.request('update', formData);
+    } catch (e) {
+      alert('A problem with updating! Try to reload this page');
+    }
     this.dancer.classList.add('hidden');
   }
 
@@ -210,7 +214,12 @@ export default class Page {
     }
     this.dancer.classList.remove('hidden');
     if (full) {
-      this.list = await Storage.request('fetch');
+      try {
+        this.list = await Storage.request('fetch');
+      } catch (e) {
+        alert('A problem with fetching! Try to reload this page');
+        this.list = { status: 'Not fetched', data: [] };
+      }
     }
     if (this.list.data) {
       this.list.data.forEach((item) => this.render(item));
