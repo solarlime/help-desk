@@ -93,6 +93,13 @@ export default class Page {
       });
     });
 
+    this.form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!this.save.disabled) {
+        this.save.dispatchEvent(new Event('click'));
+      }
+    });
+
     this.form.addEventListener('input', () => {
       // Блокируем кнопку в случае, если будет хотя бы одно невалидное поле
       this.save.disabled = Object.values(this.validity).some((input) => input === false);
