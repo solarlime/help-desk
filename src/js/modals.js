@@ -17,7 +17,6 @@ export default class Modals {
       if (title) title.value = target.name;
       modal.querySelector('#description').value = target.description;
       this.validity = { title: true, description: true };
-      setTimeout(() => { title.focus(); }, 0);
     }
     // Simple title.focus() does not work. Why — don't know
     if (title) setTimeout(() => { title.focus(); }, 0);
