@@ -3509,10 +3509,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.26.0":
-  version: 3.26.0
-  resolution: "core-js@npm:3.26.0"
-  checksum: 0149eb9d3909fde9c17626af3a6e625c326e8598d0bb5e6c5b48a18e5fcd4eaf48d4964d873667d8148542ff590fb98eb3f93618da114ca54999d6bc0349734b
+"core-js@npm:^3.30.1":
+  version: 3.30.1
+  resolution: "core-js@npm:3.30.1"
+  checksum: 6d4a00b488694d4c715c424e15dfef31433ac7aa395c39c518a0cfacec918ada1c716fed74682033197e0164e23bbf38bfd598ee9a239c4aaa590ab1ba862ac8
   languageName: node
   linkType: hard
 
@@ -5127,7 +5127,7 @@ __metadata:
     babel-jest: ^29.5.0
     babel-loader: ^9.0.1
     clean-webpack-plugin: ^4.0.0
-    core-js: ^3.26.0
+    core-js: ^3.30.1
     css-loader: ^6.7.1
     css-minimizer-webpack-plugin: ^4.2.2
     dotenv-webpack: ^8.0.1
