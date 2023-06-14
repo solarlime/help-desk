@@ -3786,15 +3786,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:8.1.3":
-  version: 8.1.3
-  resolution: "cosmiconfig@npm:8.1.3"
+"cosmiconfig@npm:8.2.0":
+  version: 8.2.0
+  resolution: "cosmiconfig@npm:8.2.0"
   dependencies:
     import-fresh: ^3.2.1
     js-yaml: ^4.1.0
     parse-json: ^5.0.0
     path-type: ^4.0.0
-  checksum: b3d277bc3a8a9e649bf4c3fc9740f4c52bf07387481302aa79839f595045368903bf26ea24a8f7f7b8b180bf46037b027c5cb63b1391ab099f3f78814a147b2b
+  checksum: 836d5d8efa750f3fb17b03d6ca74cd3154ed025dffd045304b3ef59637f662bde1e5dc88f8830080d180ec60841719cf4ea2ce73fb21ec694b16865c478ff297
   languageName: node
   linkType: hard
 
@@ -4158,10 +4158,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1120988":
-  version: 0.0.1120988
-  resolution: "devtools-protocol@npm:0.0.1120988"
-  checksum: 68eb7aa6a2fe20f8321168f9381849296b203355a5c052461b7ed95e8787b34458029dd64c8d4a8640d9fd329138a6d82f41237f5331ea4267c090dcbf6581f7
+"devtools-protocol@npm:0.0.1135028":
+  version: 0.0.1135028
+  resolution: "devtools-protocol@npm:0.0.1135028"
+  checksum: ee647140ac843ba3a7a4b6436588bf81adbb1f035489a9e71985b27c1f489779c63865ddb70a98beb3f4cea9dd53f1e049f41163c46d4555a76d36868b5882d1
   languageName: node
   linkType: hard
 
@@ -5517,7 +5517,7 @@ __metadata:
     html-webpack-plugin: ^5.5.1
     jest: ^29.5.0
     mini-css-extract-plugin: ^2.7.6
-    puppeteer: ^20.5.0
+    puppeteer: ^20.7.1
     terser-webpack-plugin: ^5.3.9
     uniqid: ^5.4.0
     webpack: ^5.86.0
@@ -8407,33 +8407,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:20.5.0":
-  version: 20.5.0
-  resolution: "puppeteer-core@npm:20.5.0"
+"puppeteer-core@npm:20.7.1":
+  version: 20.7.1
+  resolution: "puppeteer-core@npm:20.7.1"
   dependencies:
     "@puppeteer/browsers": 1.4.1
     chromium-bidi: 0.4.11
     cross-fetch: 3.1.6
     debug: 4.3.4
-    devtools-protocol: 0.0.1120988
+    devtools-protocol: 0.0.1135028
     ws: 8.13.0
   peerDependencies:
     typescript: ">= 4.7.4"
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 4b93587588294b33ff41f39cabc4fe431b75dd7488013288a7f91c46d8a55c535230eb568543e476d4b070ce1f7316b7edefb7a965cc0b8e3629b6dab6776f62
+  checksum: d57c586cfbd240f6fa44e776e13c4e6e40d8d3e106ab2cdd436f34e0bd3d187eb8a77c3bc52177c9d1faff0d82700b561f9c372991e1af2cf7a329828268e67d
   languageName: node
   linkType: hard
 
-"puppeteer@npm:^20.5.0":
-  version: 20.5.0
-  resolution: "puppeteer@npm:20.5.0"
+"puppeteer@npm:^20.7.1":
+  version: 20.7.1
+  resolution: "puppeteer@npm:20.7.1"
   dependencies:
     "@puppeteer/browsers": 1.4.1
-    cosmiconfig: 8.1.3
-    puppeteer-core: 20.5.0
-  checksum: 11a907a8b69df893ff8433cb0a2af731fcf732cac53f8f02e3067a7fdb14013fa223456451c1a1a690bc19e0381016de38213a49fcbcd1f9634b76f8d42ffab8
+    cosmiconfig: 8.2.0
+    puppeteer-core: 20.7.1
+  checksum: 6990e0cff513a854f6761e94194e55498168d46df4a348931b97d30f12423a5347533c1352d8a005c5270a591a430124a87bfe6163d6b75adbfe25b26d6b0d4d
   languageName: node
   linkType: hard
 
