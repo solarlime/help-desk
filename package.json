@@ -51,5 +51,8 @@
   "dependencies": {
     "uniqid": "^5.4.0"
   },
+  "resolutions": {
+    "word-wrap": "aashutoshrathi/word-wrap"
+  },
   "packageManager": "yarn@3.4.1"
 }
