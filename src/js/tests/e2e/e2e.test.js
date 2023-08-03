@@ -1,5 +1,5 @@
-const puppeteer = require('puppeteer');
 const { fork } = require('child_process');
+const puppeteer = require('puppeteer');
 
 jest.setTimeout(30000);
 describe('E2E', () => {
