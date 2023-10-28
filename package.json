@@ -37,6 +37,8 @@
     "eslint": "^8.48.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.28.1",
+    "favicons": "^7.1.4",
+    "favicons-webpack-plugin": "^6.0.1",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.3",
     "jest": "^29.7.0",
@@ -54,5 +56,5 @@
   "browserslist": [
     "defaults"
   ],
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.6.4"
 }
