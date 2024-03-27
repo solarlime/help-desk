@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/solarlime/help-desk#readme",
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
+    "@babel/cli": "^7.24.1",
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "babel-jest": "^29.7.0",
