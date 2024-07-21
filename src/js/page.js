@@ -3,6 +3,12 @@ import Modals from './modals';
 import validation from './validation';
 import Storage from './storage';
 
+const breakDescription = (description) => {
+  const container = document.createElement('div');
+  container.innerText = description;
+  return container;
+};
+
 export default class Page {
   constructor() {
     this.page = document.body;
@@ -170,7 +176,8 @@ export default class Page {
 
     // Списки содержат символы новой строки. Обрабатываем их для правильной отрисовки
     const enter = '\n';
-    const htmlDescription = item.description.includes(enter) ? item.description.split(enter).join('<br>') : item.description;
+    const htmlDescription = item.description.includes(enter)
+      ? breakDescription(item.description) : item.description;
 
     const listItemTicket = document.createElement('div');
     listItemTicket.classList.add('list-item-ticket');
@@ -181,7 +188,7 @@ export default class Page {
 
     const listItemDescription = document.createElement('div');
     listItemDescription.classList.add('list-item-description');
-    listItemDescription.textContent = htmlDescription;
+    listItemDescription.append(htmlDescription);
 
     const listItemDate = document.createElement('div');
     listItemDate.classList.add('list-item-date');
