@@ -19,7 +19,10 @@ export default class Modals {
       this.validity = { title: true, description: true };
     }
     // Simple title.focus() does not work. Why — don't know
-    if (title) setTimeout(() => { title.focus(); }, 0);
+    if (title)
+      setTimeout(() => {
+        title.focus();
+      }, 0);
     Modals.toggle(modal, true);
   }
 
@@ -56,8 +59,9 @@ export default class Modals {
       target.description = description;
 
       // Sending a request
-      Object.entries({ id: rowId, name, description })
-        .forEach((field) => formData.append(field[0], field[1]));
+      Object.entries({ id: rowId, name, description }).forEach((field) =>
+        formData.append(field[0], field[1]),
+      );
       Modals.cancel(modal);
       try {
         await Storage.request('update', formData);
@@ -68,7 +72,7 @@ export default class Modals {
       if (!list) {
         list = [];
       }
-      const resolveDate = (() => {
+      const resolveDate = () => {
         const now = new Date();
         const options = {
           year: 'numeric',
@@ -79,14 +83,20 @@ export default class Modals {
           minute: 'numeric',
         };
         return now.toLocaleString('ru', options);
-      });
+      };
       const newbie = {
-        id: id(), done: false, name, description, date: resolveDate(),
+        id: id(),
+        done: false,
+        name,
+        description,
+        date: resolveDate(),
       };
       list.push(newbie);
 
       // Sending a request
-      Object.entries(newbie).forEach((field) => formData.append(field[0], field[1]));
+      Object.entries(newbie).forEach((field) =>
+        formData.append(field[0], field[1]),
+      );
       Modals.cancel(modal);
       try {
         await Storage.request('new', formData);
@@ -107,7 +117,10 @@ export default class Modals {
   static async delete(rowId, modal, list) {
     const formData = new FormData();
     formData.append('id', rowId);
-    list.splice(list.findIndex((item) => item.id === rowId), 1);
+    list.splice(
+      list.findIndex((item) => item.id === rowId),
+      1,
+    );
     Modals.cancel(modal);
     try {
       await Storage.request('delete', formData);

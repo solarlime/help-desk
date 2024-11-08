@@ -4,9 +4,7 @@
     "es6": true,
     "jest": true
   },
-  "extends": [
-    "airbnb-base"
-  ],
+  "extends": ["airbnb-base", "prettier"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -16,14 +14,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-restricted-syntax": [
-      "error",
-      "LabeledStatement",
-      "WithStatement"
-    ],
-    "import/no-extraneous-dependencies": [
-      "error",
-      { "devDependencies": true }
-    ]
+    "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }

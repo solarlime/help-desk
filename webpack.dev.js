@@ -6,7 +6,5 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: { port: 9001, hot: true },
-  plugins: [
-    new Dotenv(),
-  ],
+  plugins: [new Dotenv()],
 });

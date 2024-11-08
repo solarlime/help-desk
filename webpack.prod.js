@@ -7,12 +7,7 @@ const common = require('./webpack.common');
 module.exports = merge(common, {
   mode: 'production',
   optimization: {
-    minimizer: [
-      new TerserPlugin({}),
-      new OptimizeCSSAssetsPlugin({}),
-    ],
+    minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],
   },
-  plugins: [
-    new Dotenv({ systemvars: true }),
-  ],
+  plugins: [new Dotenv({ systemvars: true })],
 });

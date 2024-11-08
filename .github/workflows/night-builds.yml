@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the night-builds branch
   push:
-    branches: [ night-builds ]
+    branches: [night-builds]
   pull_request:
-    branches: [ night-builds ]
+    branches: [night-builds]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
