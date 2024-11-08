@@ -23,6 +23,7 @@ export default class Storage {
       });
 
       xhr.addEventListener('error', (error) => {
+        window.location.replace(process.env.SERVER_DOWN);
         reject(error);
       });
 
