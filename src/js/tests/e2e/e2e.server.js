@@ -1,6 +1,6 @@
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
-const config = require('../../../../webpack.dev');
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import config from '../../../../webpack.dev.js';
 
 const server = new WebpackDevServer(
   { port: 9090, host: 'localhost' },

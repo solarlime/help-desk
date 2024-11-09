@@ -1,7 +1,6 @@
-/* eslint-disable import/no-cycle, class-methods-use-this */
-import Modals from './modals';
-import validation from './validation';
-import Storage from './storage';
+import Modals from './modals.js';
+import validation from './validation.js';
+import Storage from './storage.js';
 
 const breakDescription = (description) => {
   const container = document.createElement('div');

@@ -1,6 +1,4 @@
-/* eslint-disable import/no-cycle, no-unused-expressions */
-
-import Page from './page';
+import Page from './page.js';
 
 export default class App {
   static async init() {

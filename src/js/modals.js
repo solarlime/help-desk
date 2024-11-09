@@ -1,6 +1,5 @@
-/* eslint-disable import/no-cycle, no-param-reassign */
 import id from 'uniqid';
-import Storage from './storage';
+import Storage from './storage.js';
 
 export default class Modals {
   /**

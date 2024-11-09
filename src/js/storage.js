@@ -15,7 +15,10 @@ export default class Storage {
       };
       const action = actions[command];
       const xhr = new XMLHttpRequest();
-      xhr.open(action.method, `${process.env.HOST}/help-desk/${action.url}`);
+      xhr.open(
+        action.method,
+        `${import.meta.env.HOST}/help-desk/${action.url}`,
+      );
 
       xhr.addEventListener('load', () => {
         const response = JSON.parse(xhr.response);
@@ -23,7 +26,7 @@ export default class Storage {
       });
 
       xhr.addEventListener('error', (error) => {
-        window.location.replace(process.env.SERVER_DOWN);
+        window.location.replace(import.meta.env.SERVER_DOWN);
         reject(error);
       });
 
