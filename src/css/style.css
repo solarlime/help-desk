@@ -119,6 +119,7 @@ body {
     padding: 0;
     margin: 0 auto;
     border: 1px solid crimson;
+    box-sizing: border-box;
 }
 
 .list:first-child {
