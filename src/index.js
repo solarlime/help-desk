@@ -1,5 +1,5 @@
-import App from './js/app.js';
+import { init } from './js/App.jsx';
 import './css/style.css';
 
-App.init();
+init();
 console.log('Works!');

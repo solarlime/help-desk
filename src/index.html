@@ -16,19 +16,18 @@
     <main>
       <div class="list-container">
         <input type="checkbox" id="tip" />
-        <p class="title-container">
-          <span class="title-container-title">List</span>
+        <div class="title-container">
           <label id="tip-label" class="title-container-tip" for="tip">
-            <span class="show">Show</span><span class="hide">Hide</span> the
-            tip!</label
-          >
-          <span class="title-container-plus">Add new ticket</span>
-        </p>
+            <span class="show">Show</span><span class="hide">Hide</span> the tip</label>
+            <div id="plus-wrapper" class="title-container-plus"></div>
+        </div>
         <div class="tip-container">
-          <p class="tip">
-            <span class="green">Green</span> paragraphs have descriptions.
-            <br />Click them to show / hide it!
-          </p>
+          <div>
+            <p class="tip">
+              <span class="green">Green</span> paragraphs have descriptions.
+              <br />Click them to show / hide it!
+            </p>
+          </div>
         </div>
         <div class="list">
           <div class="list-item">
@@ -38,7 +37,9 @@
             <div class="list-item-actions">Actions</div>
           </div>
         </div>
-        <ul class="list"></ul>
+        <div id="root">
+          <ul class="list"></ul>
+        </div>
       </div>
     </main>
     <div class="modal-container modal-add-update hidden">

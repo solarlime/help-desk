@@ -7,10 +7,17 @@
   --done: 20px;
 }
 
+:focus,
+:focus-visible {
+  outline: 1px solid green;
+  outline-offset: 2px;
+}
+
 html {
   font-family: 'Inter', Arial, sans-serif;
   font-size: 16px;
   word-wrap: break-word;
+  color: black;
 }
 
 body {
@@ -28,21 +35,21 @@ body {
 .title-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 80%;
   margin: 0 auto 10px auto;
 }
 
-.title-container-title,
-.title-container-tip,
-.title-container-plus {
-  width: 33%;
-}
-
 .title-container-tip {
   margin: 0 0.5%;
-  text-align: center;
-  color: #bbbbbb;
-  animation: blink linear 2s alternate infinite;
+  text-align: left;
+  animation: blink linear 4s alternate infinite;
+  cursor: pointer;
+}
+
+:is(#tip:focus) ~ .title-container .title-container-tip {
+  outline: 1px solid green;
+  outline-offset: 2px;
 }
 
 @keyframes blink {
@@ -96,23 +103,49 @@ body {
 }
 
 #tip:not(:checked) ~ .tip-container {
-  max-height: 0;
+  display: grid;
   margin-bottom: 0;
   border-width: 0;
+  grid-template-rows: 0fr;
   transition: all ease-in 0.25s;
 }
 
 #tip:checked ~ .tip-container {
-  max-height: 30vh;
+  display: grid;
   margin-bottom: 10px;
   border-width: 1px;
+  grid-template-rows: 1fr;
   transition: all ease-out 0.25s;
 }
 
+/* For animation */
+.tip-container > div {
+  overflow: hidden;
+}
+
 .title-container-plus {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.title-container-plus-content,
+.title-container-tip {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 4px;
+  background: transparent;
+  font: inherit;
   cursor: pointer;
+}
+
+.title-container-plus-content {
   color: green;
+}
+
+.title-container-plus-content:hover {
+  background: transparent;
+  opacity: 80%;
 }
 
 .list {
@@ -124,8 +157,8 @@ body {
   box-sizing: border-box;
 }
 
-.list:first-child {
-  border-bottom: 0;
+ul.list:not(:has(li)) {
+  border-top: 0;
 }
 
 div.list {
@@ -237,6 +270,12 @@ div.list {
 .list-item-description {
   color: darkgray;
   font-size: 0.8rem;
+}
+
+.list-item-description-content {
+  margin: 0;
+  font-family: inherit;
+  white-space: pre-wrap;
 }
 
 .list-item-date {
@@ -413,13 +452,18 @@ button:disabled {
 }
 
 .no-spoiler {
-  padding-top: 20px;
+  padding-top: 10px;
+}
+
+.centered {
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 500px) {
   :root {
     --done-width: 25px;
-    --date-width: 55px;
+    --date-width: 58px;
     --actions-width: 40px;
     --done: 16px;
   }
