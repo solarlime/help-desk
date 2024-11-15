@@ -7,7 +7,10 @@
   --done: 20px;
 }
 
-:focus,
+:focus {
+  outline: none;
+}
+
 :focus-visible {
   outline: 1px solid green;
   outline-offset: 2px;
@@ -47,7 +50,7 @@ body {
   cursor: pointer;
 }
 
-:is(#tip:focus) ~ .title-container .title-container-tip {
+:is(#tip:focus-visible) ~ .title-container .title-container-tip {
   outline: 1px solid green;
   outline-offset: 2px;
 }
@@ -158,11 +161,15 @@ body {
 }
 
 ul.list:not(:has(li)) {
-  border-top: 0;
+  border: 0;
 }
 
-div.list {
-  border-bottom: 0;
+/*div.list {*/
+/*  border-bottom: 0;*/
+/*}*/
+
+ul.list {
+  border-top: 0;
 }
 
 .list-item {
@@ -371,12 +378,12 @@ form label {
   font-size: 0.8rem;
 }
 
-.add {
+.form-title {
   padding: 0;
 }
 
-.add,
-.update {
+.form-title,
+.form-description {
   text-align: left;
 }
 
@@ -391,9 +398,12 @@ form label {
   font-size: 0.8rem;
 }
 
-#title:focus,
-#description:focus {
-  border: 1px solid crimson;
+#title:focus-visible,
+#description:focus-visible,
+button:focus-visible {
+  /*border: 1px solid crimson;*/
+  /*outline: 1px solid green;*/
+  outline-offset: 0;
 }
 
 #description {
@@ -412,6 +422,10 @@ textarea::-webkit-scrollbar {
 .button-container {
   display: flex;
   flex-wrap: wrap;
+}
+
+.button-container button:not(:last-child) {
+  margin-right: 2px;
 }
 
 button {
