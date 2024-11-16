@@ -9,7 +9,7 @@ const setEscListener = (
       if (event.key === 'Escape') {
         event.preventDefault();
         if (modalType !== 'none') {
-          setModalType('none');
+          setModalType({ type: 'none', data: null });
         }
       }
     });

@@ -9,18 +9,18 @@ import { ModalWrapper } from './components/Modals/ModalWrapper.jsx';
 function App() {
   const plusContainer = document.getElementById('plus-wrapper');
   const modalContainer = document.getElementById('modal-wrapper');
-  const [listItems] = useState(
-    sendRequest('fetch').then((response) => response.data),
-  );
-  const [modalType, setModalType] = useState('none');
-  console.log(modalType);
+  const [listItems] = useState(() => {
+    return sendRequest('fetch').then((response) => response.data);
+  });
+  const [modal, setModal] = useState({ type: 'none', data: null });
+  console.log(modal);
 
   return (
     <>
-      <ListContainer listPromise={listItems} setModalType={setModalType} />
-      {createPortal(<AddButton setModalType={setModalType} />, plusContainer)}
+      <ListContainer listPromise={listItems} setModal={setModal} />
+      {createPortal(<AddButton setModal={setModal} />, plusContainer)}
       {createPortal(
-        <ModalWrapper modalType={modalType} setModalType={setModalType} />,
+        <ModalWrapper modal={modal} setModal={setModal} />,
         modalContainer,
       )}
     </>

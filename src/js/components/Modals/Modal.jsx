@@ -1,7 +1,8 @@
 import { useRef, useEffect } from 'react';
 import { setEscListener } from './setEscListener.js';
 
-function Modal({ modalType, setModalType, hasEscListener, setHasEscListener }) {
+function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
+  const { type: modalType, data: modalData } = modal;
   const focusRef = useRef(null);
 
   useEffect(() => {
@@ -10,13 +11,8 @@ function Modal({ modalType, setModalType, hasEscListener, setHasEscListener }) {
 
   useEffect(
     () =>
-      setEscListener(
-        hasEscListener,
-        setHasEscListener,
-        modalType,
-        setModalType,
-      ),
-    [hasEscListener, setHasEscListener, modalType, setModalType],
+      setEscListener(hasEscListener, setHasEscListener, modalType, setModal),
+    [hasEscListener, setHasEscListener, modalType, setModal],
   );
 
   return (
@@ -38,6 +34,7 @@ function Modal({ modalType, setModalType, hasEscListener, setHasEscListener }) {
                   type="text"
                   ref={focusRef}
                   required
+                  defaultValue={modalData?.name ?? ''}
                 />
                 <span className="error error-name hidden"></span>
               </label>
@@ -46,6 +43,7 @@ function Modal({ modalType, setModalType, hasEscListener, setHasEscListener }) {
                 <textarea
                   id="description"
                   placeholder="A big and verbose description"
+                  defaultValue={modalData?.description ?? ''}
                 ></textarea>
               </label>
             </>
@@ -59,7 +57,7 @@ function Modal({ modalType, setModalType, hasEscListener, setHasEscListener }) {
                 <button
                   className="cancel"
                   type="button"
-                  onClick={() => setModalType('none')}
+                  onClick={() => setModal({ type: 'none', data: null })}
                   ref={focusRef}
                 >
                   Cancel
@@ -73,7 +71,7 @@ function Modal({ modalType, setModalType, hasEscListener, setHasEscListener }) {
                 <button
                   className="cancel"
                   type="button"
-                  onClick={() => setModalType('none')}
+                  onClick={() => setModal({ type: 'none', data: null })}
                 >
                   Cancel
                 </button>

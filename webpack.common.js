@@ -42,6 +42,17 @@ export default {
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
+        test: /\.svg$/i,
+        type: 'asset',
+        resourceQuery: { not: [/react/] }, // exclude react component if *.svg?react
+      },
+      {
+        test: /\.svg$/i,
+        issuer: /\.jsx?$/,
+        resourceQuery: /react/, // *.svg?react
+        use: ['@svgr/webpack'],
+      },
+      {
         test: /\.(png|jpg|gif|ico)$/i,
         type: 'asset/resource',
       },

@@ -38,6 +38,7 @@ export default [
       'no-undef': 'warn',
       'react/prop-types': 'off',
       'no-unused-vars': 'warn',
+      'import-x/no-unresolved': ['error', { ignore: ['\\.svg\\?react$'] }],
     },
   },
   eslintPluginImportX.flatConfigs.recommended,

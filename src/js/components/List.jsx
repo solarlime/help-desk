@@ -1,7 +1,7 @@
 import { Suspense, useState, use } from 'react';
 import { Row } from './Row.jsx';
 
-function List({ listPromise, setModalType }) {
+function List({ listPromise, setModal }) {
   const [listItems, setListItems] = useState(use(listPromise));
   return (
     <ul className="list">
@@ -15,7 +15,7 @@ function List({ listPromise, setModalType }) {
             done={done}
             date={date}
             listSetter={setListItems}
-            setModalType={setModalType}
+            setModal={setModal}
           />
         );
       })}
@@ -23,7 +23,7 @@ function List({ listPromise, setModalType }) {
   );
 }
 
-function ListContainer({ listPromise, setModalType }) {
+function ListContainer({ listPromise, setModal }) {
   return (
     <Suspense
       fallback={
@@ -32,7 +32,7 @@ function ListContainer({ listPromise, setModalType }) {
         </ul>
       }
     >
-      <List listPromise={listPromise} setModalType={setModalType} />
+      <List listPromise={listPromise} setModal={setModal} />
     </Suspense>
   );
 }

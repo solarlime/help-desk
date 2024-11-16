@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Modal } from './Modal.jsx';
 
-function ModalWrapper({ modalType, setModalType }) {
+function ModalWrapper({ modal, setModal }) {
   const [hasEscListener, setHasEscListener] = useState(false);
 
-  if (modalType === 'none') {
+  if (modal.type === 'none') {
     return null;
   }
   return (
     <Modal
-      modalType={modalType}
-      setModalType={setModalType}
+      modal={modal}
+      setModal={setModal}
       hasEscListener={hasEscListener}
       setHasEscListener={setHasEscListener}
     />

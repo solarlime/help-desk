@@ -22,6 +22,7 @@
   "homepage": "https://github.com/solarlime/help-desk#readme",
   "devDependencies": {
     "@eslint/js": "^9.14.0",
+    "@svgr/webpack": "^8.1.0",
     "@swc/core": "^1.9.1",
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.35.1",
