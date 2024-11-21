@@ -1,13 +1,37 @@
 import { useRef, useEffect } from 'react';
+import { Name } from './Name.jsx';
+import { Save } from './Save.jsx';
+import { useStore } from '../../store.js';
 import { setEscListener } from './setEscListener.js';
 
 function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
   const { type: modalType, data: modalData } = modal;
   const focusRef = useRef(null);
+  const initialFormName = useStore((state) => state.form.initialName);
+  const setInitialFormName = useStore((state) => state.setFormInitialName);
+  const setFormName = useStore((state) => state.setFormName);
 
   useEffect(() => {
     focusRef.current.focus();
   }, [focusRef]);
+
+  useEffect(() => {
+    if (modalData?.name) {
+      // Update
+      if (initialFormName !== modalData.name) {
+        // Opened another row
+        setInitialFormName(modalData.name);
+        setFormName(modalData.name);
+      }
+    } else {
+      // New
+      if (initialFormName !== '') {
+        // Opened the accidentally closed 'new' modal
+        setInitialFormName('');
+        setFormName('');
+      }
+    }
+  }, []);
 
   useEffect(
     () =>
@@ -26,18 +50,7 @@ function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
             <label>Do you want to remove this ticket?</label>
           ) : (
             <>
-              <label className="form-title">
-                Title
-                <input
-                  id="title"
-                  placeholder="A very remarkable title"
-                  type="text"
-                  ref={focusRef}
-                  required
-                  defaultValue={modalData?.name ?? ''}
-                />
-                <span className="error error-name hidden"></span>
-              </label>
+              <Name ref={focusRef} />
               <label className="form-description">
                 Description
                 <textarea
@@ -65,9 +78,7 @@ function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
               </>
             ) : (
               <>
-                <button className="save" type="button">
-                  Save
-                </button>
+                <Save />
                 <button
                   className="cancel"
                   type="button"

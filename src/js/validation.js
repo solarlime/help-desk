@@ -7,9 +7,9 @@ export default function validation(input) {
         return true;
       }
       if (input.validity.valueMissing) {
-        message.textContent = 'Enter the name, please.';
+        message.textContent = 'You need to fill the title in';
       } else {
-        message.textContent = 'This value is invalid.';
+        message.textContent = 'This value is invalid';
       }
       message.classList.remove('hidden');
       return false;
@@ -18,3 +18,7 @@ export default function validation(input) {
   }
   return true;
 }
+
+const isValidName = (value) => /^[А-Яа-яËё. A-Za-z0-9]*$/.test(value);
+
+export { isValidName };
