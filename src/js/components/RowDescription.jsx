@@ -1,4 +1,4 @@
-function Description({ isOpened, children }) {
+function RowDescription({ isOpened, children }) {
   return (
     <div
       className={`list-item-description ${isOpened ? 'no-spoiler' : 'hidden'}`}
@@ -8,4 +8,4 @@ function Description({ isOpened, children }) {
   );
 }
 
-export { Description };
+export { RowDescription };

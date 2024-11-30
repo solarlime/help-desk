@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Description } from './Description.jsx';
+import { RowDescription } from './RowDescription.jsx';
 import { Checkbox } from './Checkbox.jsx';
 import Pen from '../../img/pen.svg?react';
 import Bin from '../../img/bin.svg?react';
@@ -12,14 +12,16 @@ function Row({ id, name, description, done, date, listSetter, setModal }) {
   return (
     <li className="list-item" data-id={id}>
       <Checkbox id={id} done={done} setList={listSetter} />
-      <div className={`list-item-ticket ${description ? 'spoiler' : ''}`}>
-        <div className="list-item-title" onClick={handleNameClick}>
-          {name}
+      {description ? (
+        <div className="list-item-ticket spoiler" onClick={handleNameClick}>
+          <div className="list-item-title">{name}</div>
+          <RowDescription isOpened={isOpened}>{description}</RowDescription>
         </div>
-        {description ? (
-          <Description isOpened={isOpened}>{description}</Description>
-        ) : null}
-      </div>
+      ) : (
+        <div className="list-item-ticket">
+          <div className="list-item-title">{name}</div>
+        </div>
+      )}
       <div className="list-item-date">{date}</div>
       <div className="list-item-actions">
         <Pen
