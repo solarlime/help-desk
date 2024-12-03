@@ -16,6 +16,8 @@ const createFormSlice = (set) => ({
   setFormInitialName: (initialName) =>
     set((state) => ({ form: { ...state.form, initialName } })),
   setFormName: (name) => set((state) => ({ form: { ...state.form, name } })),
+  setFormInitialDescription: (initialDescription) =>
+    set((state) => ({ form: { ...state.form, initialDescription } })),
   setFormDescription: (description) =>
     set((state) => ({ form: { ...state.form, description } })),
   setFormCanSubmit: (canSubmit) =>

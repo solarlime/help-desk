@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { Name } from './Name.jsx';
+import { Description } from './Description.jsx';
 import { Save } from './Save.jsx';
 import { useStore } from '../../store.js';
 import { setEscListener } from './setEscListener.js';
@@ -10,6 +11,13 @@ function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
   const initialFormName = useStore((state) => state.form.initialName);
   const setInitialFormName = useStore((state) => state.setFormInitialName);
   const setFormName = useStore((state) => state.setFormName);
+  const initialFormDescription = useStore(
+    (state) => state.form.initialDescription,
+  );
+  const setInitialFormDescription = useStore(
+    (state) => state.setFormInitialDescription,
+  );
+  const setFormDescription = useStore((state) => state.setFormDescription);
 
   useEffect(() => {
     focusRef.current.focus();
@@ -29,6 +37,19 @@ function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
         // Opened the accidentally closed 'new' modal
         setInitialFormName('');
         setFormName('');
+      }
+    }
+    if (modalData?.description) {
+      // Update
+      if (initialFormDescription !== modalData.description) {
+        setInitialFormDescription(modalData.description);
+        setFormDescription(modalData.description);
+      }
+    } else {
+      // New
+      if (initialFormDescription !== '') {
+        setInitialFormDescription('');
+        setFormDescription('');
       }
     }
   }, []);
@@ -51,14 +72,7 @@ function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
           ) : (
             <>
               <Name ref={focusRef} />
-              <label className="form-description">
-                Description
-                <textarea
-                  id="description"
-                  placeholder="A big and verbose description"
-                  defaultValue={modalData?.description ?? ''}
-                ></textarea>
-              </label>
+              <Description />
             </>
           )}
           <div className="button-container">
