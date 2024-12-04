@@ -14,21 +14,24 @@ function Name({ ref }) {
   };
 
   const handleBlur = () => {
-    const trimmed = formName.trim();
-    setFormName(
-      formName
-        .split(' ')
-        .filter((word) => word.length)
-        .join(' '),
-    );
-    if (trimmed.length && !canSubmit) {
-      setFormCanSubmit(true);
-    }
-    if (!trimmed.length) {
-      if (canSubmit) {
-        setFormCanSubmit(false);
+    // Do it only if the modal is defined
+    if (ref?.current) {
+      const trimmed = formName.trim();
+      setFormName(
+        formName
+          .split(' ')
+          .filter((word) => word.length)
+          .join(' '),
+      );
+      if (trimmed.length && !canSubmit) {
+        setFormCanSubmit(true);
       }
-      setIsError(true);
+      if (!trimmed.length) {
+        if (canSubmit) {
+          setFormCanSubmit(false);
+        }
+        setIsError(true);
+      }
     }
   };
 
@@ -47,7 +50,8 @@ function Name({ ref }) {
           if (isError) setIsError(false);
         }}
         onChange={handleChange}
-        onBlur={handleBlur}
+        // In order to prevent blurring on cancel
+        onBlur={() => setTimeout(handleBlur, 200)}
       />
       {isError ? (
         <span className="error error-name">

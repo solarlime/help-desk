@@ -1,5 +1,6 @@
 import id from 'uniqid';
-import Storage from './storage.js';
+import { sendRequest } from './sendRequest.js';
+import { resolveDate } from './components/Modals/resolveDate.js';
 
 export default class Modals {
   /**
@@ -63,7 +64,7 @@ export default class Modals {
       );
       Modals.cancel(modal);
       try {
-        await Storage.request('update', formData);
+        await sendRequest('update', formData);
       } catch (e) {
         alert('A problem with updating! Try to reload this page');
       }
@@ -71,18 +72,6 @@ export default class Modals {
       if (!list) {
         list = [];
       }
-      const resolveDate = () => {
-        const now = new Date();
-        const options = {
-          year: 'numeric',
-          month: 'numeric',
-          day: 'numeric',
-          timezone: 'UTC',
-          hour: 'numeric',
-          minute: 'numeric',
-        };
-        return now.toLocaleString('ru', options);
-      };
       const newbie = {
         id: id(),
         done: false,
@@ -98,7 +87,7 @@ export default class Modals {
       );
       Modals.cancel(modal);
       try {
-        await Storage.request('new', formData);
+        await sendRequest('new', formData);
       } catch (e) {
         alert('A problem with adding! Try to reload this page');
       }
@@ -122,7 +111,7 @@ export default class Modals {
     );
     Modals.cancel(modal);
     try {
-      await Storage.request('delete', formData);
+      await sendRequest('delete', formData);
     } catch (e) {
       alert('A problem with deleting! Try to reload this page');
     }

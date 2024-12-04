@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Modal } from './Modal.jsx';
 
-function ModalWrapper({ modal, setModal }) {
+function ModalWrapper({ modal, setModal, setOptimisticList, optimisticList }) {
   const [hasEscListener, setHasEscListener] = useState(false);
 
   if (modal.type === 'none') {
@@ -13,6 +13,8 @@ function ModalWrapper({ modal, setModal }) {
       setModal={setModal}
       hasEscListener={hasEscListener}
       setHasEscListener={setHasEscListener}
+      optimisticList={optimisticList}
+      setOptimisticList={setOptimisticList}
     />
   );
 }

@@ -1,6 +1,6 @@
 import Modals from './modals.js';
 import validation from './validation.js';
-import Storage from './storage.js';
+import { sendRequest } from './sendRequest.js';
 
 const breakDescription = (description) => {
   const container = document.createElement('div');
@@ -168,7 +168,7 @@ export default class Page {
     }).forEach((field) => formData.append(field[0], field[1]));
     this.dancer.classList.remove('hidden');
     try {
-      await Storage.request('update', formData);
+      await sendRequest('update', formData);
     } catch (e) {
       alert('A problem with updating! Try to reload this page');
     }
@@ -264,7 +264,7 @@ export default class Page {
     this.dancer.classList.remove('hidden');
     if (full) {
       try {
-        this.list = await Storage.request('fetch');
+        this.list = await sendRequest('fetch');
       } catch (e) {
         alert('A problem with fetching! Try to reload this page');
         this.list = { status: 'Not fetched', data: [] };

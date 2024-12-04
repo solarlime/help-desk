@@ -4,14 +4,14 @@ import { Checkbox } from './Checkbox.jsx';
 import Pen from '../../img/pen.svg?react';
 import Bin from '../../img/bin.svg?react';
 
-function Row({ id, name, description, done, date, listSetter, setModal }) {
+function Row({ id, name, description, done, date, setModal, optimisticList }) {
   const [isOpened, setIsOpened] = useState(false);
 
   const handleNameClick = () => setIsOpened(!isOpened);
 
   return (
     <li className="list-item" data-id={id}>
-      <Checkbox id={id} done={done} setList={listSetter} />
+      <Checkbox id={id} done={done} optimisticList={optimisticList} />
       {description ? (
         <div className="list-item-ticket spoiler" onClick={handleNameClick}>
           <div className="list-item-title">{name}</div>
@@ -27,7 +27,7 @@ function Row({ id, name, description, done, date, listSetter, setModal }) {
         <Pen
           className="list-item-actions-update"
           onClick={() =>
-            setModal({ type: 'update', data: { id, name, description } })
+            setModal({ type: 'update', data: { id, name, description, done } })
           }
         />
         <Bin

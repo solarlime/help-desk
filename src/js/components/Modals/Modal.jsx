@@ -4,13 +4,22 @@ import { Description } from './Description.jsx';
 import { Save } from './Save.jsx';
 import { useStore } from '../../store.js';
 import { setEscListener } from './setEscListener.js';
+import { resolveDate } from './resolveDate.js';
 
-function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
+function Modal({
+  modal,
+  setModal,
+  hasEscListener,
+  setHasEscListener,
+  optimisticList,
+  setOptimisticList,
+}) {
   const { type: modalType, data: modalData } = modal;
   const focusRef = useRef(null);
   const initialFormName = useStore((state) => state.form.initialName);
   const setInitialFormName = useStore((state) => state.setFormInitialName);
   const setFormName = useStore((state) => state.setFormName);
+  console.log(modalData);
   const initialFormDescription = useStore(
     (state) => state.form.initialDescription,
   );
@@ -24,6 +33,7 @@ function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
   }, [focusRef]);
 
   useEffect(() => {
+    console.log(modalData);
     if (modalData?.name) {
       // Update
       if (initialFormName !== modalData.name) {
@@ -92,7 +102,14 @@ function Modal({ modal, setModal, hasEscListener, setHasEscListener }) {
               </>
             ) : (
               <>
-                <Save />
+                <Save
+                  id={modalData?.id || null}
+                  done={modalData?.done || false}
+                  date={modalData?.date || resolveDate()}
+                  setModal={setModal}
+                  optimisticList={optimisticList}
+                  setOptimisticList={setOptimisticList}
+                />
                 <button
                   className="cancel"
                   type="button"
