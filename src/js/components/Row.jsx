@@ -27,7 +27,10 @@ function Row({ id, name, description, done, date, setModal, optimisticList }) {
         <Pen
           className="list-item-actions-update"
           onClick={() =>
-            setModal({ type: 'update', data: { id, name, description, done } })
+            setModal({
+              type: 'update',
+              data: { id, name, description, date, done },
+            })
           }
         />
         <Bin
