@@ -1,20 +1,18 @@
 import { useState } from 'react';
 import { Modal } from './Modal.jsx';
+import { useStore } from '../../store.js';
 
-function ModalWrapper({ modal, setModal, setOptimisticList, optimisticList }) {
+function ModalWrapper() {
   const [hasEscListener, setHasEscListener] = useState(false);
+  const modal = useStore((state) => state.modal);
 
   if (modal.type === 'none') {
     return null;
   }
   return (
     <Modal
-      modal={modal}
-      setModal={setModal}
       hasEscListener={hasEscListener}
       setHasEscListener={setHasEscListener}
-      optimisticList={optimisticList}
-      setOptimisticList={setOptimisticList}
     />
   );
 }

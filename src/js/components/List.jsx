@@ -1,9 +1,11 @@
-import { Suspense, use, useEffect } from 'react';
+import { Suspense, use, useContext, useEffect } from 'react';
 import { useStore } from '../store.js';
 import { Row } from './Row.jsx';
+import { OptimisticContext } from '../context.jsx';
 
-function List({ listPromise, setModal, optimisticList }) {
+function List({ listPromise }) {
   const initialListItems = use(listPromise);
+  const { optimisticList } = useContext(OptimisticContext);
   const setList = useStore((store) => store.setList);
 
   useEffect(() => {
@@ -22,8 +24,6 @@ function List({ listPromise, setModal, optimisticList }) {
               description={description}
               done={done}
               date={date}
-              setModal={setModal}
-              optimisticList={optimisticList}
             />
           );
         },
@@ -32,7 +32,7 @@ function List({ listPromise, setModal, optimisticList }) {
   );
 }
 
-function ListContainer({ listPromise, setModal, optimisticList }) {
+function ListContainer({ listPromise }) {
   return (
     <Suspense
       fallback={
@@ -41,11 +41,7 @@ function ListContainer({ listPromise, setModal, optimisticList }) {
         </ul>
       }
     >
-      <List
-        listPromise={listPromise}
-        setModal={setModal}
-        optimisticList={optimisticList}
-      />
+      <List listPromise={listPromise} />
     </Suspense>
   );
 }

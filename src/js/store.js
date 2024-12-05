@@ -5,6 +5,10 @@ const listInitialState = {
   list: [],
 };
 
+const modalInitialState = {
+  modal: { type: 'none', data: null },
+};
+
 const formInitialState = {
   form: {
     initialName: '',
@@ -26,6 +30,11 @@ const requestInitialState = {
 const createListSlice = (set) => ({
   ...listInitialState,
   setList: (list) => set((state) => ({ list })),
+});
+
+const createModalSlice = (set) => ({
+  ...modalInitialState,
+  setModal: (modalState) => set((state) => ({ modal: modalState })),
 });
 
 const createFormSlice = (set) => ({
@@ -130,8 +139,12 @@ const createRequestSlice = (set) => ({
           operations: {
             ...state.operations,
             update: [
-              ...oldUpdate.filter((item) => item.id !== rowToUpdate.id),
-              rowToUpdate,
+              ...oldUpdate.map((item) => {
+                if (item.id === rowToUpdate.id) {
+                  return { ...item, ...rowToUpdate };
+                }
+                return item;
+              }),
             ],
           },
         };
@@ -141,6 +154,7 @@ const createRequestSlice = (set) => ({
 
 export const storeCreator = (...a) => ({
   ...createListSlice(...a),
+  ...createModalSlice(...a),
   ...createFormSlice(...a),
   ...createRequestSlice(...a),
 });

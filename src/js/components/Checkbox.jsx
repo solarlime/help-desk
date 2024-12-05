@@ -1,11 +1,27 @@
-import { useTransition, useOptimistic } from 'react';
+import { useTransition, useOptimistic, useContext } from 'react';
 import { useStore } from '../store.js';
-import { makeRequest } from '../makeRequest.js';
-import { prepareList } from './prepareList.js';
+import { OptimisticContext } from '../context.jsx';
+import { saveChanges } from '../utils/saveChanges.js';
 
-function Checkbox({ id, done, optimisticList }) {
+/**
+ * Checkbox component for rendering and managing the state of a checkbox.
+ *
+ * This component uses optimistic UI updates to toggle the `done` state
+ * of an item, identified by its `id`. It utilizes the `useTransition`
+ * hook for managing asynchronous state transitions and the `useOptimistic`
+ * hook for local state management. The component interacts with the global
+ * state by using the `useStore` hook and the `OptimisticContext`.
+ *
+ * @param {Object} props - Component props.
+ * @param {string} props.id - Unique identifier for the item.
+ * @param {boolean} props.done - Initial state of the checkbox.
+ * @returns {ReactElement} - A table cell with a checkbox input.
+ */
+function Checkbox({ id, done }) {
   const [isPending, startTransition] = useTransition();
   const [optimisticDone, setOptimisticDone] = useOptimistic(done);
+  const { optimisticList } = useContext(OptimisticContext);
+
   const update = useStore((store) => store.update);
   const list = useStore((store) => store.list);
   const setList = useStore((store) => store.setList);
@@ -16,24 +32,13 @@ function Checkbox({ id, done, optimisticList }) {
       setOptimisticDone(newDone);
       const targetRow = optimisticList.find((item) => item.id === id);
       const a = { ...targetRow, done: newDone };
-      console.log(a);
       update(a);
-      try {
-        const response = await makeRequest();
-        const newList = prepareList(list, response.operations);
-        setList(newList);
-        // list.map((item) => {
-        //   if (item.id === id) return { ...item, done: newDone };
-        //   return item;
-        // }),
-      } catch (e) {
-        console.log('List state reverted');
-      }
+      await saveChanges(list, setList);
     });
   };
 
   return (
-    <div className="list-item-done-container">
+    <td className="list-item-done-container">
       <input
         className="list-item-done"
         type="checkbox"
@@ -42,7 +47,7 @@ function Checkbox({ id, done, optimisticList }) {
         onChange={handleChange}
       />
       <label htmlFor={id}></label>
-    </div>
+    </td>
   );
 }
 

@@ -6,20 +6,13 @@ import { useStore } from '../../store.js';
 import { setEscListener } from './setEscListener.js';
 import { resolveDate } from './resolveDate.js';
 
-function Modal({
-  modal,
-  setModal,
-  hasEscListener,
-  setHasEscListener,
-  optimisticList,
-  setOptimisticList,
-}) {
-  const { type: modalType, data: modalData } = modal;
+function Modal({ hasEscListener, setHasEscListener }) {
   const focusRef = useRef(null);
+
   const initialFormName = useStore((state) => state.form.initialName);
   const setInitialFormName = useStore((state) => state.setFormInitialName);
   const setFormName = useStore((state) => state.setFormName);
-  console.log(modalData);
+
   const initialFormDescription = useStore(
     (state) => state.form.initialDescription,
   );
@@ -28,12 +21,15 @@ function Modal({
   );
   const setFormDescription = useStore((state) => state.setFormDescription);
 
+  const modal = useStore((state) => state.modal);
+  const setModal = useStore((state) => state.setModal);
+  const { type: modalType, data: modalData } = modal;
+
   useEffect(() => {
     focusRef.current.focus();
   }, [focusRef]);
 
   useEffect(() => {
-    console.log(modalData);
     if (modalData?.name) {
       // Update
       if (initialFormName !== modalData.name) {
@@ -106,9 +102,6 @@ function Modal({
                   id={modalData?.id || null}
                   done={modalData?.done || false}
                   date={modalData?.date || resolveDate()}
-                  setModal={setModal}
-                  optimisticList={optimisticList}
-                  setOptimisticList={setOptimisticList}
                 />
                 <button
                   className="cancel"

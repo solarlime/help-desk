@@ -1,44 +1,60 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { RowDescription } from './RowDescription.jsx';
 import { Checkbox } from './Checkbox.jsx';
 import Pen from '../../img/pen.svg?react';
 import Bin from '../../img/bin.svg?react';
+import { useStore } from '../store.js';
+import { OptimisticContext } from '../context.jsx';
 
-function Row({ id, name, description, done, date, setModal, optimisticList }) {
-  const [isOpened, setIsOpened] = useState(false);
-
-  const handleNameClick = () => setIsOpened(!isOpened);
+function Row({ id, name, description, done, date }) {
+  const setModal = useStore((state) => state.setModal);
+  const { isCompact } = useContext(OptimisticContext);
 
   return (
-    <li className="list-item" data-id={id}>
-      <Checkbox id={id} done={done} optimisticList={optimisticList} />
+    <tr className="list-item">
+      <Checkbox id={id} done={done} />
+      {/* If there is a description, we show it in a spoiler */}
       {description ? (
-        <div className="list-item-ticket spoiler" onClick={handleNameClick}>
-          <div className="list-item-title">{name}</div>
-          <RowDescription isOpened={isOpened}>{description}</RowDescription>
-        </div>
+        <td className="list-item-ticket spoiler">
+          <input
+            type="checkbox"
+            id={`spoiler-${id}`}
+            className="spoiler-checkbox"
+          />
+          <label htmlFor={`spoiler-${id}`}>
+            <div className="list-item-title">{name}</div>
+            {isCompact ? <div className="list-item-date">{date}</div> : null}
+            <RowDescription>{description}</RowDescription>
+          </label>
+        </td>
       ) : (
-        <div className="list-item-ticket">
+        // If there is no description, we just show the title
+        <td className="list-item-ticket">
           <div className="list-item-title">{name}</div>
-        </div>
+          {isCompact ? <div className="list-item-date">{date}</div> : null}
+        </td>
       )}
-      <div className="list-item-date">{date}</div>
-      <div className="list-item-actions">
-        <Pen
-          className="list-item-actions-update"
+      {isCompact ? null : <td className="list-item-date">{date}</td>}
+      <td className="list-item-actions">
+        <button
+          type="button"
           onClick={() =>
             setModal({
               type: 'update',
               data: { id, name, description, date, done },
             })
           }
-        />
-        <Bin
-          className="list-item-actions-delete"
+        >
+          <Pen className="list-item-actions-update" />
+        </button>
+        <button
+          type="button"
           onClick={() => setModal({ type: 'delete', data: { id } })}
-        />
-      </div>
-    </li>
+        >
+          <Bin className="list-item-actions-delete" />
+        </button>
+      </td>
+    </tr>
   );
 }
 
