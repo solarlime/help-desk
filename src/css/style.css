@@ -12,7 +12,7 @@
 }
 
 :focus-visible {
-  outline: 1px solid green;
+  outline: 2px solid green;
   outline-offset: 2px;
 }
 
@@ -51,7 +51,7 @@ body {
 }
 
 :is(#tip:focus-visible) ~ .title-container .title-container-tip {
-  outline: 1px solid green;
+  outline: 2px solid green;
   outline-offset: 2px;
 }
 
@@ -136,7 +136,7 @@ body {
   border: 0;
   padding: 0;
   margin: 0;
-  border-radius: 4px;
+  border-radius: 0;
   background: transparent;
   font: inherit;
   cursor: pointer;
@@ -202,17 +202,22 @@ ul.list {
   position: absolute;
   left: -9999px;
 }
-[type='checkbox']:not(:checked) + label:not([id='tip-label']),
-[type='checkbox']:checked + label:not([id='tip-label']) {
+[type='checkbox']:not(:checked) + label,
+[type='checkbox']:checked + label {
   position: relative;
   cursor: pointer;
   width: var(--done);
   height: var(--done);
 }
 
+:is(.list-item-done:focus-visible) + label {
+  outline: 2px solid green;
+  outline-offset: 2px;
+}
+
 /* checkbox aspect */
-[type='checkbox']:not(:checked) + label:not([id='tip-label']):before,
-[type='checkbox']:checked + label:not([id='tip-label']):before {
+[type='checkbox']:not(:checked) + label:before,
+[type='checkbox']:checked + label:before {
   content: '';
   position: absolute;
   left: 0;
@@ -221,13 +226,13 @@ ul.list {
   height: var(--done);
   border: 1px solid #ccc;
   background: #fff;
-  border-radius: 4px;
+  border-radius: 0;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
 /* checked mark aspect */
-[type='checkbox']:not(:checked) + label:not([id='tip-label']):after,
-[type='checkbox']:checked + label:not([id='tip-label']):after {
+[type='checkbox']:not(:checked) + label:after,
+[type='checkbox']:checked + label:after {
   content: '\2713\0020';
   position: absolute;
   top: 1px;
@@ -238,33 +243,33 @@ ul.list {
   transition: all 0.2s;
 }
 /* checked mark aspect changes */
-[type='checkbox']:not(:checked) + label:not([id='tip-label']):after {
+[type='checkbox']:not(:checked) + label:after {
   opacity: 0;
   transform: scale(0);
 }
-[type='checkbox']:checked + label:not([id='tip-label']):after {
+[type='checkbox']:checked + label:after {
   opacity: 1;
   transform: scale(1);
 }
 /* disabled checkbox */
-[type='checkbox']:disabled:not(:checked) + label:not([id='tip-label']):before,
-[type='checkbox']:disabled:checked + label:not([id='tip-label']):before {
+[type='checkbox']:disabled:not(:checked) + label:before,
+[type='checkbox']:disabled:checked + label:before {
   box-shadow: none;
   border-color: #bbb;
   background-color: #ddd;
 }
-[type='checkbox']:disabled:checked + label:not([id='tip-label']):after {
+[type='checkbox']:disabled:checked + label:after {
   color: #999;
 }
-[type='checkbox']:disabled + label:not([id='tip-label']) {
+[type='checkbox']:disabled + label {
   color: #aaa;
 }
 
-[type='checkbox']:checked + label:not([id='tip-label']):hover:before {
+[type='checkbox']:checked + label:hover:before {
   border: 1px solid crimson;
 }
 
-[type='checkbox']:not(:checked) + label:not([id='tip-label']):hover:before {
+[type='checkbox']:not(:checked) + label:hover:before {
   border: 1px solid green;
 }
 
@@ -301,16 +306,29 @@ ul.list .list-item-actions {
   font-size: 1rem;
 }
 
-.list-item-actions-update,
-.list-item-actions-delete {
+.list-item-actions button {
   width: var(--done);
   height: var(--done);
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
   cursor: pointer;
+}
+
+.list-item-actions button:not(:last-child) {
+  margin-right: 5px;
+}
+
+.list-item-actions-update,
+.list-item-actions-delete {
+  width: 100%;
+  height: 100%;
 }
 
 .list-item-actions-update {
   fill: green;
-  margin-right: 5px;
 }
 
 .list-item-actions-delete {
@@ -399,11 +417,10 @@ form label {
 }
 
 #title:focus-visible,
-#description:focus-visible,
-button:focus-visible {
+#description:focus-visible {
   /*border: 1px solid crimson;*/
-  /*outline: 1px solid green;*/
-  outline-offset: 0;
+  /*outline: 2px solid green;*/
+  outline-offset: -1px;
 }
 
 #description {
@@ -425,13 +442,13 @@ textarea::-webkit-scrollbar {
 }
 
 .button-container button:not(:last-child) {
-  margin-right: 2px;
+  margin-right: 4px;
 }
 
 button {
   padding: 5px 0;
   border: 1px solid rgb(224, 224, 224);
-  border-radius: 4px;
+  border-radius: 0;
   background-color: rgb(246, 245, 244);
   color: black;
 }
