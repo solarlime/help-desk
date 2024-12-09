@@ -5,6 +5,7 @@ import { Save } from './Save.jsx';
 import { useStore } from '../../store.js';
 import { setEscListener } from './setEscListener.js';
 import { resolveDate } from './resolveDate.js';
+import { Delete } from './Delete.jsx';
 
 function Modal({ hasEscListener, setHasEscListener }) {
   const focusRef = useRef(null);
@@ -83,35 +84,22 @@ function Modal({ hasEscListener, setHasEscListener }) {
           )}
           <div className="button-container">
             {modalType === 'delete' ? (
-              <>
-                <button className="delete" type="button">
-                  Delete
-                </button>
-                <button
-                  className="cancel"
-                  type="button"
-                  onClick={() => setModal({ type: 'none', data: null })}
-                  ref={focusRef}
-                >
-                  Cancel
-                </button>
-              </>
+              <Delete id={modalData.id} />
             ) : (
-              <>
-                <Save
-                  id={modalData?.id || null}
-                  done={modalData?.done || false}
-                  date={modalData?.date || resolveDate()}
-                />
-                <button
-                  className="cancel"
-                  type="button"
-                  onClick={() => setModal({ type: 'none', data: null })}
-                >
-                  Cancel
-                </button>
-              </>
+              <Save
+                id={modalData?.id || null}
+                done={modalData?.done || false}
+                date={modalData?.date || resolveDate()}
+              />
             )}
+            <button
+              className="cancel"
+              type="button"
+              onClick={() => setModal({ type: 'none', data: null })}
+              ref={modalType === 'delete' ? focusRef : null}
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </div>
