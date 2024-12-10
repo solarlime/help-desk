@@ -1,33 +1,36 @@
-import { Suspense, use, useContext, useEffect } from 'react';
+import { Suspense, use, useContext, useEffect, useState } from 'react';
 import { useStore } from '../store.js';
 import { Row } from './Row.jsx';
 import { OptimisticContext } from '../context.jsx';
 
 function List({ listPromise }) {
   const initialListItems = use(listPromise);
+  const [initiated, setInitiated] = useState(false);
   const { optimisticList } = useContext(OptimisticContext);
   const setList = useStore((store) => store.setList);
 
   useEffect(() => {
     setList(initialListItems);
+    setInitiated(true);
   }, []);
 
   return (
     <ul className="list">
-      {(optimisticList.length ? optimisticList : initialListItems).map(
-        ({ id, name, description, done, date }) => {
-          return (
-            <Row
-              key={id}
-              id={id}
-              name={name}
-              description={description}
-              done={done}
-              date={date}
-            />
-          );
-        },
-      )}
+      {(optimisticList.length || initiated
+        ? optimisticList
+        : initialListItems
+      ).map(({ id, name, description, done, date }) => {
+        return (
+          <Row
+            key={id}
+            id={id}
+            name={name}
+            description={description}
+            done={done}
+            date={date}
+          />
+        );
+      })}
     </ul>
   );
 }
