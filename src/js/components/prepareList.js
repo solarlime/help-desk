@@ -25,7 +25,12 @@ const prepareList = (list, operations) => {
         return item;
       }),
     // New list should have created items
-    ...flatOperations.filter((item) => item.operationType === 'create'),
+    ...flatOperations
+      .filter((item) => item.operationType === 'create')
+      .map((item) => {
+        const { operationType, ...rest } = item;
+        return { ...rest };
+      }),
   ];
 };
 
