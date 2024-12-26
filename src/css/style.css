@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 :root {
-  --done-width: 30px;
+  --done-width: 20px;
   --date-width: 100px;
   --actions-width: 70px;
   --done: 20px;
+  --content-width: 90%;
 }
 
 :focus {
@@ -39,7 +40,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
+  width: var(--content-width);
   margin: 0 auto 10px auto;
 }
 
@@ -66,7 +67,7 @@ body {
 
 .tip-container {
   display: block;
-  width: 80%;
+  width: var(--content-width);
   margin: 0 auto;
   padding: 0;
   border: 1px solid #bbbbbb;
@@ -151,46 +152,35 @@ body {
   opacity: 80%;
 }
 
-.list {
-  width: 80%;
+.list-wrapper, .list {
+  display: grid;
   height: auto;
   padding: 0;
   margin: 0 auto;
-  border: 1px solid crimson;
   box-sizing: border-box;
 }
 
-ul.list:not(:has(li)) {
-  border: 0;
+.list {
+  width: 100%;
+  border-top: 1px solid crimson;
 }
 
-/*div.list {*/
-/*  border-bottom: 0;*/
-/*}*/
-
-ul.list {
-  border-top: 0;
+.list-wrapper {
+  width: var(--content-width);
+  border: 1px solid crimson;
 }
 
 .list-item {
-  font-size: 1rem;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: var(--done-width) 1fr var(--date-width) var(--actions-width);
   align-items: center;
-  list-style: none;
+  gap: 10px;
+  font-size: 1rem;
   padding: 10px;
 }
 
 .list-item-done-container {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: var(--done);
-  height: var(--done);
-  padding-right: calc(var(--done-width) - var(--done));
-}
-
-.list-item-done {
   width: var(--done);
   height: var(--done);
 }
@@ -273,10 +263,9 @@ ul.list {
   border: 1px solid green;
 }
 
-.list-item-ticket {
-  width: calc(100% - var(--done-width) - var(--date-width) - var(--date-width));
-  display: flex;
-  flex-direction: column;
+.list-item-generic {
+  grid-area: 1 / 1 / 1 / 5;
+  text-align: center;
 }
 
 .list-item-description {
@@ -290,20 +279,11 @@ ul.list {
   white-space: pre-wrap;
 }
 
-.list-item-date {
-  width: var(--date-width);
-}
-
 .list-item-actions {
-  font-size: 1rem;
   display: flex;
-  flex-wrap: nowrap;
-  width: var(--actions-width);
+  align-items: center;
   justify-content: flex-end;
-}
-
-ul.list .list-item-actions {
-  font-size: 1rem;
+  text-align: right;
 }
 
 .list-item-actions button {
@@ -493,14 +473,12 @@ button:disabled {
 
 @media (max-width: 500px) {
   :root {
-    --done-width: 25px;
-    --date-width: 58px;
-    --actions-width: 40px;
-    --done: 16px;
+    --date-width: 75px;
+    --actions-width: 45px;
   }
 
   html {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   /* checked mark aspect */
@@ -508,10 +486,10 @@ button:disabled {
   [type='checkbox']:checked + label:not([id='tip-label']):after {
     top: 2px;
     left: 3px;
-    font-size: 1.35rem;
+    font-size: 1.6rem;
   }
 
   .modal {
-    font-size: 16px;
+    font-size: 14px;
   }
 }

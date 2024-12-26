@@ -15,7 +15,7 @@ function List({ listPromise }) {
   }, []);
 
   return (
-    <ul className="list">
+    <tbody className="list">
       {(optimisticList.length || initiated
         ? optimisticList
         : initialListItems
@@ -31,7 +31,7 @@ function List({ listPromise }) {
           />
         );
       })}
-    </ul>
+    </tbody>
   );
 }
 
@@ -39,9 +39,11 @@ function ListContainer({ listPromise }) {
   return (
     <Suspense
       fallback={
-        <ul className="list">
-          <li className="list-item centered">Loading...</li>
-        </ul>
+        <tbody className="list">
+          <tr className="list-item centered">
+            <td className="list-item-generic">Loading...</td>
+          </tr>
+        </tbody>
       }
     >
       <List listPromise={listPromise} />

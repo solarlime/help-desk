@@ -29,17 +29,19 @@
             </p>
           </div>
         </div>
-        <div class="list">
-          <div class="list-item">
-            <div class="list-item-done-container"></div>
-            <div class="list-item-ticket">Name</div>
-            <div class="list-item-date">Date</div>
-            <div class="list-item-actions">Actions</div>
-          </div>
-        </div>
-        <div id="root">
-          <ul class="list"></ul>
-        </div>
+        <table id="root" class="list-wrapper">
+          <thead>
+            <tr class="list-item">
+              <td class="list-item-done-container"></td>
+              <td class="list-item-ticket">Name</td>
+              <td class="list-item-date">Date</td>
+              <td class="list-item-actions">Actions</td>
+            </tr>
+          </thead>
+          <tbody class="list">
+            <tr class="list-item"></tr>
+          </tbody>
+        </table>
       </div>
     </main>
     <div id="modal-wrapper" class="modal-container-wrapper"></div>
