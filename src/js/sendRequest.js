@@ -35,7 +35,11 @@ function sendRequest(currentAction, data = undefined, isAsync = true) {
         .catch((error) => reject(error));
     } else {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, `${import.meta.env.HOST}/help-desk/${endpoint}`);
+      xhr.open(
+        method,
+        `${import.meta.env.HOST}/help-desk/${endpoint}`,
+        isAsync,
+      );
       xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
       xhr.addEventListener('load', () => {

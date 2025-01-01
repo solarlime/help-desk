@@ -7,28 +7,38 @@ import { prepareList } from './js/components/prepareList.js';
 
 init();
 
-document.addEventListener('visibilitychange', async () => {
-  if (document.visibilityState === 'hidden') {
-    const { operations, list } = useStore.getState();
-    if (Object.values(operations).flat().length) {
-      try {
-        const res = await sendRequest('batch', { operations }, false);
-        getAbortController().abort();
-        useStore.setState({
-          ...useStore.getState(),
-          ...requestInitialState,
-        });
-        const newList = prepareList(list, res.data.operations);
-        useStore.setState({
-          ...useStore.getState(),
-          list: newList,
-        });
-      } catch (e) {
-        console.log(e);
-        console.log('List state reverted');
-      }
+async function emergencySave() {
+  const { operations, list } = useStore.getState();
+  if (Object.values(operations).flat().length) {
+    try {
+      const res = await sendRequest('batch', { operations }, false);
+      getAbortController().abort();
+      useStore.setState({
+        ...useStore.getState(),
+        ...requestInitialState,
+      });
+      const newList = prepareList(list, res.data.operations);
+      useStore.setState({
+        ...useStore.getState(),
+        list: newList,
+      });
+    } catch (e) {
+      console.log(e);
+      console.log('List state reverted');
     }
   }
+}
+
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState === 'hidden') {
+    await emergencySave();
+  }
+});
+
+['pagehide, beforeunload'].forEach((event) => {
+  document.addEventListener(event, async () => {
+    await emergencySave();
+  });
 });
 
 console.log('Works!');
