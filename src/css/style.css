@@ -58,7 +58,7 @@ body {
 }
 
 .title-container-tip {
-  margin: 0 0.5%;
+  margin: 0;
   text-align: left;
   cursor: pointer;
 }
@@ -110,24 +110,33 @@ body {
   display: inline;
 }
 
-#tip:not(:checked) ~ .tip-container {
+#tip:not(:checked) ~ .tip-container,
+.spoiler-checkbox:not(:checked) + label .list-item-description {
   display: grid;
-  margin-bottom: 0;
   border-width: 0;
   grid-template-rows: 0fr;
   transition: all ease-in 0.25s;
 }
 
-#tip:checked ~ .tip-container {
+#tip:not(:checked) ~ .tip-container {
+  margin-bottom: 0;
+}
+
+#tip:checked ~ .tip-container,
+.spoiler-checkbox:checked + label .list-item-description {
   display: grid;
-  margin-bottom: var(--small-padding);
   border-width: 1px;
   grid-template-rows: 1fr;
   transition: all ease-out 0.25s;
 }
 
+#tip:checked ~ .tip-container {
+  margin-bottom: var(--small-padding);
+}
+
 /* For animation */
-.tip-container > div {
+.tip-container > div,
+.list-item-description > div {
   overflow: hidden;
 }
 
@@ -223,14 +232,14 @@ button:disabled {
   cursor: pointer;
 }
 
-:is(.list-item-done:focus-visible) + label {
+:is(.list-item-done:focus-visible, .spoiler-checkbox:focus-visible) + label {
   outline: 2px solid green;
   outline-offset: 2px;
 }
 
 /* checkbox aspect */
-[type='checkbox']:not(:checked) + label:before,
-[type='checkbox']:checked + label:before {
+[type='checkbox']:not(.spoiler-checkbox):not(:checked) + label:before,
+[type='checkbox']:not(.spoiler-checkbox):checked + label:before {
   content: '';
   position: absolute;
   left: 0;
@@ -244,8 +253,8 @@ button:disabled {
   box-sizing: border-box;
 }
 /* checked mark aspect */
-[type='checkbox']:not(:checked) + label:after,
-[type='checkbox']:checked + label:after {
+[type='checkbox']:not(.spoiler-checkbox):not(:checked) + label:after,
+[type='checkbox']:not(.spoiler-checkbox):checked + label:after {
   content: '\2713\0020';
   position: absolute;
   top: 1px;
@@ -256,11 +265,11 @@ button:disabled {
   transition: all 0.2s;
 }
 /* checked mark aspect changes */
-[type='checkbox']:not(:checked) + label:after {
+[type='checkbox']:not(.spoiler-checkbox):not(:checked) + label:after {
   opacity: 0;
   transform: scale(0);
 }
-[type='checkbox']:checked + label:after {
+[type='checkbox']:not(.spoiler-checkbox):checked + label:after {
   opacity: 1;
   transform: scale(1);
 }
@@ -297,6 +306,7 @@ button:disabled {
 }
 
 .list-item-description-content {
+  padding-top: var(--small-padding);
   margin: 0;
   font-family: inherit;
   white-space: pre-wrap;
@@ -467,10 +477,6 @@ textarea::-webkit-scrollbar {
 
 .spoiler .list-item-title {
   color: green;
-}
-
-.no-spoiler {
-  padding-top: var(--small-padding);
 }
 
 .centered {
