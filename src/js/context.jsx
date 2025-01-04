@@ -13,8 +13,20 @@ export const OptimisticProvider = ({ children, list }) => {
     const handleChange = (event) => {
       setIsCompact(event.matches);
     };
-    compactMatcher.addEventListener('change', handleChange);
-    return () => compactMatcher.removeEventListener('change', handleChange);
+    if (compactMatcher.addEventListener) {
+      compactMatcher.addEventListener('change', handleChange);
+    } else {
+      // fallback for Safari 12
+      compactMatcher.addListener(handleChange);
+    }
+    return () => {
+      if (compactMatcher.removeEventListener) {
+        compactMatcher.removeEventListener('change', handleChange);
+      } else {
+        // fallback for Safari 12
+        compactMatcher.removeListener(handleChange);
+      }
+    };
   }, []);
 
   return (
