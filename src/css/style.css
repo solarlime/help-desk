@@ -374,24 +374,6 @@ button:disabled {
   box-sizing: border-box;
 }
 
-/*.wrapper {*/
-/*  width: 270px;*/
-/*  height: 300px;*/
-/*  object-fit: contain;*/
-/*  overflow: hidden;*/
-/*}*/
-
-/*.modal-dancer {*/
-/*  background: white;*/
-/*  opacity: 0.7;*/
-/*}*/
-
-/*.dancer {*/
-/*  width: 300px;*/
-/*  height: 300px;*/
-/*  text-align: center;*/
-/*}*/
-
 #add-and-update,
 #delete {
   width: 100%;
@@ -468,10 +450,6 @@ textarea::-webkit-scrollbar {
 
 .delete {
   color: crimson;
-}
-
-.hidden {
-  display: none;
 }
 
 .spoiler {
