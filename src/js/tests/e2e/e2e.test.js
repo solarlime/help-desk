@@ -20,7 +20,7 @@ describe('E2E', () => {
       });
     });
     browser = await puppeteer.launch({
-      headless: 'new',
+      headless: true,
       // headless: false,
       // slowMo: 50,
       // devtools: true,
@@ -32,7 +32,7 @@ describe('E2E', () => {
     server.kill();
   });
   describe('Tests', () => {
-    async function dancerResolver() {
+    async function createRequestInterceptor() {
       const headers = {
         'access-control-allow-origin': '*',
         'access-control-allow-methods': 'OPTIONS, GET, POST, PUT, DELETE',
@@ -41,34 +41,18 @@ describe('E2E', () => {
       };
       await page.setRequestInterception(true);
       page.on('request', (req) => {
-        if (
-          req.url().endsWith('fetch') ||
-          req.url().endsWith('new') ||
-          req.url().endsWith('update') ||
-          req.url().endsWith('delete')
-        ) {
+        if (req.url().endsWith('fetch') || req.url().endsWith('batch')) {
           if (req.method() === 'OPTIONS') {
             req.respond({ status: 204, headers });
-          } else if (req.method() === 'PUT') {
-            req.respond({
-              status: 200,
-              headers,
-              contentType: 'application/json',
-              body: JSON.stringify({ status: 'Updated', data: '' }),
-            });
-          } else if (req.method() === 'DELETE') {
-            req.respond({
-              status: 200,
-              headers,
-              contentType: 'application/json',
-              body: JSON.stringify({ status: 'Removed', data: '' }),
-            });
           } else if (req.method() === 'POST') {
             req.respond({
               status: 200,
               headers,
               contentType: 'application/json',
-              body: JSON.stringify({ status: 'Added', data: '' }),
+              body: JSON.stringify({
+                status: 'Batch applied',
+                data: req.postData(),
+              }),
             });
           } else {
             req.respond({
@@ -85,109 +69,81 @@ describe('E2E', () => {
     }
 
     test('Add, update, delete', async () => {
-      await dancerResolver();
+      await createRequestInterceptor();
       await page.goto(url);
       // Add
-      const plus = await page.$('[class=title-container-plus]');
+      let plus = await page.$('[class=title-container-plus]');
       plus.click();
-      await page.waitForFunction(
-        () =>
-          !document
-            .querySelector('div.modal-add-update')
-            .classList.contains('hidden'),
-      );
-      const name = await page.$('input[id=title]');
+      await page.waitForFunction(() => document.querySelector('div.modal'));
+      let name = await page.$('input[id=title]');
       await name.type('A ticket title');
-      const description = await page.$('textarea[id=description]');
+      let description = await page.$('textarea[id=description]');
       await description.type('A description for a ticket');
-      const save = await page.$('button[class=save]');
-      save.click();
-      await page.waitForFunction(() =>
-        document
-          .querySelector('div.modal-add-update')
-          .classList.contains('hidden'),
-      );
+      let save = await page.locator('button[class=save]');
+      await save.click();
+      await page.waitForFunction(() => !document.querySelector('div.modal'));
       await page.waitForFunction(
         () =>
-          document.querySelector('li.list-item .list-item-title')
-            .textContent === 'A ticket title',
+          document.querySelector('.list-item .list-item-title').textContent ===
+          'A ticket title',
       );
-      const ticket = await page.$(
-        'li[class=list-item] [class=list-item-title]',
-      );
+      const ticket = await page.$('[class=list-item] [class=list-item-title]');
       ticket.click();
       await page.waitForFunction(
         () =>
-          document.querySelector('li.list-item .list-item-description')
+          document.querySelector('.list-item .list-item-description')
             .textContent === 'A description for a ticket',
       );
 
       // Update
       const update = await page.$('svg[class=list-item-actions-update]');
       update.click();
-      await page.waitForFunction(
-        () =>
-          !document
-            .querySelector('div.modal-add-update')
-            .classList.contains('hidden'),
-      );
+      await page.waitForFunction(() => document.querySelector('div.modal'));
+      name = await page.$('input[id=title]');
       await name.click({ clickCount: 3 });
       await name.type('Another ticket title');
+      description = await page.$('textarea[id=description]');
       await description.click({ clickCount: 3 });
       await description.type('Another description for a ticket');
+      await page.locator('button[class=save]');
       save.click();
-      await page.waitForFunction(() =>
-        document
-          .querySelector('div.modal-add-update')
-          .classList.contains('hidden'),
-      );
+      await page.waitForFunction(() => !document.querySelector('div.modal'));
       await page.waitForFunction(
         () =>
-          document.querySelector('li.list-item .list-item-title')
-            .textContent === 'Another ticket title',
+          document.querySelector('.list-item .list-item-title').textContent ===
+          'Another ticket title',
       );
       const ticketNew = await page.$(
-        'li[class=list-item] [class=list-item-title]',
+        '[class=list-item] [class=list-item-title]',
       );
       ticketNew.click();
       await page.waitForFunction(
         () =>
-          document.querySelector('li.list-item .list-item-description')
+          document.querySelector('.list-item .list-item-description')
             .textContent === 'Another description for a ticket',
       );
 
       // Delete
       const remove = await page.$('svg[class=list-item-actions-delete]');
       remove.click();
-      await page.waitForFunction(
-        () =>
-          !document
-            .querySelector('div.modal-delete')
-            .classList.contains('hidden'),
-      );
+      await page.waitForFunction(() => document.querySelector('div.modal'));
       const destroy = await page.$('button[class=delete]');
       destroy.click();
-      await page.waitForFunction(() =>
-        document.querySelector('div.modal-delete').classList.contains('hidden'),
-      );
+      await page.waitForFunction(() => !document.querySelector('div.modal'));
       await page.waitForFunction(
-        () => !document.querySelector('li.list-item .list-item-title'),
+        () => !document.querySelector('.list-item .list-item-title'),
       );
 
       // Errors
+      plus = await page.$('[class=title-container-plus]');
       plus.click();
-      await page.waitForFunction(
-        () =>
-          !document
-            .querySelector('div.modal-add-update')
-            .classList.contains('hidden'),
-      );
+      await page.waitForFunction(() => document.querySelector('div.modal'));
+      name = await page.$('input[id=title]');
       await name.type('1');
       await name.press('Backspace');
-      await page.waitForFunction(
-        () =>
-          !document.querySelector('.error-name').classList.contains('hidden'),
-      );
+      description = await page.$('textarea[id=description]');
+      await description.click();
+      await page.waitForFunction(() => document.querySelector('.error-name'));
       await page.waitForFunction(
         () => document.querySelector('.save').disabled,
       );
