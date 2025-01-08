@@ -50,6 +50,21 @@ const createFormSlice = (set) => ({
     set((state) => ({ form: { ...state.form, canSubmit } })),
 });
 
+/**
+ * Creates a zustand slice for managing requests.
+ *
+ * This slice contains the following functions:
+ *
+ * - `create(newRow)`: Adds a new row to the list of rows to create.
+ * - `delete(rowToDelete)`: Removes a row to delete from the list of rows to
+ *   create if it exists, otherwise adds the row to the list of rows to delete.
+ * - `update(rowToUpdate)`: Updates a row in the list of rows to update if it
+ *   exists, otherwise adds the row to the list of rows to update or creates it
+ *   if it doesn't exist in the list of rows to create.
+ *
+ * @param {function} set - A function to update the state of the slice.
+ * @returns {object} - An object containing the operations to perform with the state.
+ */
 const createRequestSlice = (set) => ({
   ...requestInitialState,
   create: (newRow) =>

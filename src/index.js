@@ -1,6 +1,6 @@
 import { init } from './js/App.jsx';
 import './css/style.css';
-import { saveUrgently } from './js/saveUrgently.js';
+import { saveUrgently } from './js/utils/saveUrgently.js';
 
 init();
 

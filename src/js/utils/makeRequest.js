@@ -1,6 +1,18 @@
-import { formInitialState, requestInitialState, useStore } from './store.js';
+import { formInitialState, requestInitialState, useStore } from '../store.js';
 import { sendRequest } from './sendRequest.js';
 
+/**
+ * Creates a debounced request function that performs a batch operation.
+ *
+ * @param {number} time - The debounce time in milliseconds before the request is sent.
+ * @returns {Function} - Returns an async function that takes an AbortSignal as an argument
+ * and returns a promise resolving with the server response data.
+ *
+ * The returned function updates the store's state with initial form data and sets a timeout
+ * to perform a batch operation using the current operations in the store. If the signal is
+ * aborted, the operation is cancelled and the promise is rejected. Upon successful completion,
+ * the store's state changes to the initial request state with the server response data.
+ */
 const makeRequest = async (time) => {
   let timeout;
   return async (signal) => {

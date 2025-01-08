@@ -3,6 +3,23 @@ import { useStore } from '../store.js';
 import { Row } from './Row.jsx';
 import { OptimisticContext } from '../context.jsx';
 
+/**
+ * React component for rendering a list of items.
+ *
+ * Given a promise that resolves to the list of items, this component
+ * renders a table body of the list items. The list items are expected
+ * to be an array of objects with the keys 'id', 'name', 'description',
+ * 'done', and 'date'. Each list item is rendered as a `Row` component.
+ *
+ * This component uses the `useStore` hook to get the list state and
+ * the `useContext` hook to get the optimistic list state. If the
+ * optimistic list is not empty, it renders the optimistic list.
+ * Otherwise, it renders the list of items from the promise.
+ *
+ * @function List
+ * @param {Promise} listPromise - A promise that resolves to the list of items.
+ * @returns {ReactElement} - A React element representing the rendered list.
+ */
 function List({ listPromise }) {
   const initialListItems = use(listPromise);
   const [initiated, setInitiated] = useState(false);

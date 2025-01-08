@@ -1,16 +1,15 @@
 /**
- * Sends a request to the server
- * @param {string} currentAction - the action to perform ('fetch', 'batch')
- * @param {Object} data - the data to be sent (for 'batch' action)
- * @returns {Promise<Object>} - a promise that resolves with the server response ({ status, data })
+ * Performs a request to the server.
+ *
+ * @param {string} currentAction - The action to perform. Currently, only 'batch' and 'fetch' are supported.
+ * @param {object} [data] - The data to send with the request. It is required for 'batch' action and should be
+ * in the format of { operations: { create: [{ ... }, { ... }], update: [{ ... }, { ... }], delete: [{ ... }, { ... }] } },
+ * where { ... } is  { id, done, name, description, date }.
+ * @param {boolean} [isAsync=true] - Whether to perform an async request. If false, a synchronous request is made.
+ * @returns {Promise} - A promise that resolves with the server response data in JSON format ({ status, data }).
  */
 function sendRequest(currentAction, data = undefined, isAsync = true) {
   return new Promise((resolve, reject) => {
-    /**
-     * POST sends JSON: { operations: { create: [{ ... }, { ... }], update: [{ ... }, { ... }], delete: [{ ... }, { ... }] } },
-     * where { ... } is  { id, done, name, description, date }
-     * GET doesn't send any body
-     */
     const actions = {
       batch: { method: 'POST', endpoint: 'batch' },
       fetch: { method: 'GET', endpoint: 'fetch' },

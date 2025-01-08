@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useStore } from '../../store.js';
-import { isValidName } from '../../validation.js';
+import { isValidName } from '../../utils/validation.js';
 
 function Name({ ref }) {
   const formName = useStore((store) => store.form.name);
@@ -17,15 +17,18 @@ function Name({ ref }) {
     // Do it only if the modal is defined
     if (ref?.current) {
       const trimmed = formName.trim();
+      // Delete extra spaces
       setFormName(
         formName
           .split(' ')
           .filter((word) => word.length)
           .join(' '),
       );
+      // If everything is ok, allow submitting
       if (trimmed.length && !canSubmit) {
         setFormCanSubmit(true);
       }
+      // If empty, show error
       if (!trimmed.length) {
         if (canSubmit) {
           setFormCanSubmit(false);

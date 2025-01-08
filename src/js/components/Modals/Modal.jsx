@@ -3,10 +3,33 @@ import { Name } from './Name.jsx';
 import { Description } from './Description.jsx';
 import { Save } from './Save.jsx';
 import { useStore } from '../../store.js';
-import { setEscListener } from './setEscListener.js';
-import { resolveDate } from './resolveDate.js';
+import { setEscListener } from '../../utils/setEscListener.js';
+import { resolveDate } from '../../utils/resolveDate.js';
 import { Delete } from './Delete.jsx';
 
+/**
+ * A React component that represents a modal window.
+ *
+ * The component is responsible for rendering a modal window with the
+ * following components:
+ *
+ * - `Name` component: a text field to enter a new name or update an existing
+ *   one.
+ * - `Description` component: a text field to enter a new description or update
+ *   an existing one.
+ * - `Save` component: a button to save the changes.
+ * - `Delete` component: a button to delete the item.
+ *
+ * The component also sets up an event listener for keyup events to close the
+ * modal window when the Escape key is pressed.
+ *
+ * @param {boolean} hasEscListener - Whether there is already an event listener
+ *   for the Escape key.
+ * @param {function} setHasEscListener - A function to set `hasEscListener` to
+ *   `true` or `false`.
+ *
+ * @returns {ReactElement} - The rendered modal window.
+ */
 function Modal({ hasEscListener, setHasEscListener }) {
   const focusRef = useRef(null);
 
@@ -31,6 +54,9 @@ function Modal({ hasEscListener, setHasEscListener }) {
   }, [focusRef]);
 
   useEffect(() => {
+    /** Here we check if there is any filled data and deal with it
+     *  depending on the current and initial values of the form state.
+     */
     if (modalData?.name) {
       // Update
       if (initialFormName !== modalData.name) {

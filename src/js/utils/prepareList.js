@@ -1,3 +1,20 @@
+/**
+ * Prepares a new list by applying a series of operations to an existing list.
+ *
+ * This function takes the current list and an object of operations, and returns a new list
+ * that reflects the applied operations. Operations can include creation, update, and deletion
+ * of list items. The function processes the operations in the following order:
+ *
+ * 1. Removes items with IDs specified in delete operations.
+ * 2. Updates items with corresponding IDs specified in update operations.
+ * 3. Adds items specified in create operations.
+ *
+ * @param {Array} list - The current list of items.
+ * @param {Object} operations - An object containing arrays of operations to be applied.
+ *                              It should have keys 'create', 'update', and 'delete', each
+ *                              containing an array of operations.
+ * @returns {Array} - A new list of items after applying the operations.
+ */
 const prepareList = (list, operations) => {
   const flatOperations = Object.entries(operations).flatMap((operationType) =>
     operationType[1].map((operation) => ({
