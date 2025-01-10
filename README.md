@@ -1,10 +1,12 @@
-![CI](https://github.com/solarlime/help-desk/workflows/CI/badge.svg?branch=master)
+[![CI](https://github.com/solarlime/help-desk/actions/workflows/legacy.yml/badge.svg?branch=legacy)](https://github.com/solarlime/help-desk/actions/workflows/legacy.yml)
 
 # Help desk - Simple Ticket System
 
 ### What:
 
-Based on [Items list](https://solarlime.github.io/items-list/).
-It's a simple help desk. Uses a serverless function for a server logic & MongoDB for storing data.
+Based on [Items list](https://github.com/solarlime/items-list).
+It's a simple help desk with a list of tickets. This branch contains a legacy version of the project. Actual one is [here](https://github.com/solarlime/help-desk/tree/master/).
 
-Try it on [Vercel](https://help-desk.solarlime.dev/)!
+This version gets only security updates and exists to show the difference between this and the actual version. It does not use any framework and renders items every time the change happens.
+
+Try it on [Vercel](https://help-desk-legacy.solarlime.dev/)!

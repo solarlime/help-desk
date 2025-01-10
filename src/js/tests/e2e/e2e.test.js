@@ -21,6 +21,7 @@ describe('E2E', () => {
     });
     browser = await puppeteer.launch(
       {
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
         headless: 'new',
         // headless: false,
         // slowMo: 50,
