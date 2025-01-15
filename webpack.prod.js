@@ -1,18 +1,18 @@
-const { merge } = require('webpack-merge');
-const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('css-minimizer-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
-const common = require('./webpack.common');
+import { merge } from 'webpack-merge';
+import TerserPlugin from 'terser-webpack-plugin';
+import CSSMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import common from './webpack.common.js';
 
-module.exports = merge(common, {
+export default merge(common, {
   mode: 'production',
   optimization: {
     minimizer: [
-      new TerserPlugin({}),
-      new OptimizeCSSAssetsPlugin({}),
+      new TerserPlugin({
+        minify: TerserPlugin.swcMinify,
+      }),
+      new CSSMinimizerPlugin({
+        minify: CSSMinimizerPlugin.cssoMinify,
+      }),
     ],
   },
-  plugins: [
-    new Dotenv({ systemvars: true }),
-  ],
 });

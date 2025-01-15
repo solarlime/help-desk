@@ -1,75 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Help desk</title>
-</head>
-<body>
-<header class="header">
-    <h1 class="header-title">
-        Help desk
-    </h1>
-</header>
-<main>
-    <div class="list-container">
-        <input type="checkbox" id="tip">
-        <p class="title-container">
-            <span class="title-container-title">List</span>
-            <label id="tip-label" class="title-container-tip" for="tip">
-                <span class="show">Show</span><span class="hide">Hide</span> the tip!</label>
-            <span class="title-container-plus">Add new ticket</span>
-        </p>
-        <div class="tip-container">
-            <p class="tip"><span class="green">Green</span> paragraphs have descriptions. <br>Click them to show / hide it!</p></div>
-        <div class="list">
-            <div class="list-item">
-                <div class="list-item-done-container"></div>
-                <div class="list-item-ticket">Name</div>
-                <div class="list-item-date">Date</div>
-                <div class="list-item-actions">Actions</div>
-            </div>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="header-title">Help desk</h1>
+    </header>
+    <main>
+      <div class="list-container">
+        <input type="checkbox" id="tip" />
+        <div class="title-container">
+          <label id="tip-label" class="title-container-tip" for="tip">
+            <span class="show">Show</span><span class="hide">Hide</span> the tip</label>
+            <div id="plus-wrapper" class="title-container-plus"></div>
         </div>
-        <ul class="list">
-        </ul>
-    </div>
-</main>
-<div class="modal-container modal-add-update hidden">
-    <div class="modal">
-        <form id="add-and-update" novalidate>
-            <label class="add">
-                Title
-                <input id="title" placeholder="Input the title" type="text" required>
-                <span class="error error-name hidden"></span>
-            </label>
-            <label class="update">
-                Description
-                <textarea id="description" placeholder="Input the description" type="text"></textarea>
-            </label>
-            <div class="button-container">
-                <button class="save" type="button">Save</button>
-                <button class="cancel" type="button">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="modal-container modal-delete hidden">
-    <div class="modal">
-        <form id="delete">
-            <label>Do you want to remove this ticket?</label>
-            <div class="button-container">
-                <button class="delete" type="button">Delete</button>
-                <button class="cancel" type="button">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="modal-container modal-dancer hidden">
-    <div class="wrapper">
-        <img class="dancer" src="img/loading.svg" alt="">
-    </div>
-</div>
-</body>
+        <div class="tip-container">
+          <div>
+            <p class="tip">
+              <span class="green">Green</span> paragraphs have descriptions.
+              <br />Click them to show / hide it!
+            </p>
+          </div>
+        </div>
+        <table id="root" class="list-wrapper">
+          <tr class="list-item centered">
+            <td class="list-item-generic">Table was not loaded</td>
+          </tr>
+        </table>
+      </div>
+    </main>
+    <footer class="footer">
+      <p class="footer-content">
+        by <a href="https://solarlime.dev" target="_blank" rel="noopener noreferrer">solarlime</a>
+      </p>
+    </footer>
+    <div id="modal-wrapper" class="modal-container-wrapper"></div>
+  </body>
 </html>
