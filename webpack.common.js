@@ -1,10 +1,14 @@
-const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import Dotenv from 'dotenv-webpack';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import HtmlWebPackPlugin from 'html-webpack-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-module.exports = {
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+export default {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -13,13 +17,24 @@ module.exports = {
   devServer: {
     port: 9000,
   },
+  resolve: {
+    extensions: ['.jsx', '...'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.(m?js|jsx)$/,
+        exclude: /(node_modules)/,
         use: {
-          loader: 'babel-loader',
+          loader: 'swc-loader',
+        },
+      },
+      // uuid developers don't transpile their code
+      {
+        test: /\.(m?js|jsx)$/,
+        include: /(uuid)/,
+        use: {
+          loader: 'swc-loader',
         },
       },
       {
@@ -32,9 +47,18 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader, 'css-loader',
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.svg$/i,
+        type: 'asset',
+        resourceQuery: { not: [/react/] }, // exclude react component if *.svg?react
+      },
+      {
+        test: /\.svg$/i,
+        issuer: /\.jsx?$/,
+        resourceQuery: /react/, // *.svg?react
+        use: ['@svgr/webpack'],
       },
       {
         test: /\.(png|jpg|gif|ico)$/i,
@@ -45,6 +69,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new FaviconsWebpackPlugin('./src/img/favicon.svg'),
+    new Dotenv({ prefix: 'import.meta.env.', systemvars: true }),
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html',
