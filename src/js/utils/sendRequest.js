@@ -10,6 +10,7 @@
  */
 function sendRequest(currentAction, data = undefined, isAsync = true) {
   return new Promise((resolve, reject) => {
+    let timeout = null;
     const actions = {
       batch: { method: 'POST', endpoint: 'batch' },
       fetch: { method: 'GET', endpoint: 'fetch' },
@@ -45,10 +46,20 @@ function sendRequest(currentAction, data = undefined, isAsync = true) {
         resolve(JSON.parse(xhr.response));
       });
 
-      xhr.addEventListener('error', (error) => {
-        // window.location.replace(import.meta.env.SERVER_DOWN);
-        reject(error);
-      });
+      ['error', 'abort'].forEach((event) =>
+        xhr.addEventListener(event, (error) => {
+          timeout = setTimeout(() => {
+            clearTimeout(timeout);
+            window.location.replace(import.meta.env.SERVER_DOWN);
+          }, 1000);
+          reject(error);
+        }),
+      );
+
+      timeout = setTimeout(() => {
+        clearTimeout(timeout);
+        xhr.abort();
+      }, 5000);
 
       if (method === 'GET') {
         xhr.setRequestHeader('Cache-Control', 'no-cache');
