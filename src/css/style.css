@@ -48,6 +48,10 @@ body > * {
   flex-shrink: 0;
 }
 
+body > *:not(:last-child) {
+  margin-bottom: 2px;
+}
+
 a, a:visited {
   color: green;
   text-decoration: none;
@@ -183,6 +187,7 @@ button:not(:disabled):hover,
 button:disabled {
   background-color: lightgray;
   color: darkgray;
+  cursor: auto;
 }
 
 .title-container-plus-content,
@@ -491,6 +496,30 @@ textarea::-webkit-scrollbar {
   margin-top: var(--small-padding);
   background: white;
   font-size: var(--smaller-font-size);
+}
+
+.footer-switcher {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-switcher-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--small-padding);
+}
+
+button.footer-button-active,
+button.footer-button-active:hover {
+  border: 0;
+  outline: 1px solid green;
+  color: black;
+  background-color: rgba(0, 128, 0, 0.2);
+}
+
+button.footer-button-inactive {
+  border: 0;
+  color: green;
 }
 
 .footer-content {

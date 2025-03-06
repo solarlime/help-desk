@@ -2240,14 +2240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 20.3.1
-  resolution: "@types/node@npm:20.3.1"
-  checksum: 10/21440822013405d0406b291db9ad8bb19b811499a9a675dd9e3ca620c9231828534b111043a7f661babbe28503e7ddaed3b3681aceb95df23ce0a04d2aff3223
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^22.10.6":
+"@types/node@npm:*, @types/node@npm:^22.10.6":
   version: 22.10.6
   resolution: "@types/node@npm:22.10.6"
   dependencies:
