@@ -6,6 +6,7 @@ function ViewModeSwitcher() {
   return (
     <div className="footer-switcher-buttons">
       <button
+        name="all"
         className={
           mode === 'all' ? 'footer-button-active' : 'footer-button-inactive'
         }
@@ -16,6 +17,7 @@ function ViewModeSwitcher() {
         All
       </button>
       <button
+        name="active"
         className={
           mode === 'active' ? 'footer-button-active' : 'footer-button-inactive'
         }
@@ -26,6 +28,7 @@ function ViewModeSwitcher() {
         Active
       </button>
       <button
+        name="done"
         className={
           mode === 'done' ? 'footer-button-active' : 'footer-button-inactive'
         }

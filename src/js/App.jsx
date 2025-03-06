@@ -8,7 +8,6 @@ import { ViewModeSwitcher } from './components/ViewModeSwitcher.jsx';
 import { ModalWrapper } from './components/Modals/ModalWrapper.jsx';
 import { useStore } from './store.js';
 import { OptimisticContext, OptimisticProvider } from './context.jsx';
-import { useShallow } from 'zustand/react/shallow';
 
 const TableHeader = () => {
   const { isCompact } = useContext(OptimisticContext);
@@ -33,7 +32,7 @@ function App() {
     return sendRequest('fetch').then((response) => response.data);
   });
 
-  const list = useStore(useShallow((store) => store.getList()));
+  const list = useStore((store) => store.list);
 
   return (
     <OptimisticProvider list={list}>

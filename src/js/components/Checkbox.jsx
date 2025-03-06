@@ -20,7 +20,7 @@ import { saveChanges } from '../utils/saveChanges.js';
 function Checkbox({ id, done }) {
   const [isPending, startTransition] = useTransition();
   const [optimisticDone, setOptimisticDone] = useOptimistic(done);
-  const { optimisticList } = useContext(OptimisticContext);
+  const { optimisticList, setOptimisticList } = useContext(OptimisticContext);
 
   const update = useStore((store) => store.update);
   const list = useStore((store) => store.list);
@@ -30,6 +30,12 @@ function Checkbox({ id, done }) {
     startTransition(async () => {
       const newDone = !optimisticDone;
       setOptimisticDone(newDone);
+      setOptimisticList(
+        optimisticList.map((item) => {
+          if (item.id !== id) return item;
+          return { ...item, done: newDone };
+        }),
+      );
       const targetRow = optimisticList.find((item) => item.id === id);
       const a = { ...targetRow, done: newDone };
       update(a);

@@ -28,20 +28,8 @@ const requestInitialState = {
   },
 };
 
-const createListSlice = (set, get) => ({
+const createListSlice = (set) => ({
   ...listInitialState,
-  getList: () => {
-    const { mode, list } = get();
-    switch (mode) {
-      case 'active':
-        return list.filter((item) => item.done !== true);
-      case 'done':
-        return list.filter((item) => item.done === true);
-      case 'all':
-      default:
-        return list;
-    }
-  },
   setMode: (mode) => set((state) => ({ ...state, mode })),
   setList: (list) => set((state) => ({ ...state, list })),
 });

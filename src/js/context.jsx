@@ -1,4 +1,5 @@
 import { createContext, useOptimistic, useState, useEffect } from 'react';
+import { useStore } from './store.js';
 
 export const OptimisticContext = createContext(null);
 
@@ -10,6 +11,10 @@ export const OptimisticContext = createContext(null);
  * objects with `id`, `name`, `description`, `done`, and `date` properties.
  * Internally, it uses the `useOptimistic` hook to manage an optimistic list
  * state, which is an array of objects with the same shape as the `list` prop.
+ *
+ * The optimistic list directly depends on the `list` prop got from the store.
+ * However, the provider also generates displayedOptimisticList in order
+ * to show only the needed parts.
  *
  * The `OptimisticProvider` also manages a state `isCompact`, which is a boolean
  * indicating whether the layout should be compact. It is `true` when the
@@ -25,6 +30,7 @@ export const OptimisticContext = createContext(null);
  * @returns {React.ReactElement} A `OptimisticContext.Provider` component.
  */
 export const OptimisticProvider = ({ children, list }) => {
+  const mode = useStore((state) => state.mode);
   const [optimisticList, setOptimisticList] = useOptimistic(list);
   const [isCompact, setIsCompact] = useState(
     document.documentElement.clientWidth <= 500,
@@ -53,7 +59,17 @@ export const OptimisticProvider = ({ children, list }) => {
 
   return (
     <OptimisticContext.Provider
-      value={{ optimisticList, setOptimisticList, isCompact }}
+      value={{
+        optimisticList,
+        displayedOptimisticList:
+          mode === 'active'
+            ? optimisticList.filter((item) => item.done !== true)
+            : mode === 'done'
+              ? optimisticList.filter((item) => item.done === true)
+              : optimisticList,
+        setOptimisticList,
+        isCompact,
+      }}
     >
       {children}
     </OptimisticContext.Provider>
