@@ -85,6 +85,40 @@ test.describe('E2E', async () => {
     ).toHaveText('A description for a ticket');
   });
 
+  test('Modes', async ({ page }) => {
+    await createRequestInterceptor(page, data);
+    await page.goto('/', { waitUntil: 'networkidle' });
+
+    const ticket = await page.locator('.list-item .list-item-title');
+    await expect(ticket).toHaveText('Name');
+
+    const allTab = await page.locator('button[name="all"]');
+    await expect(allTab).toBeDisabled();
+
+    const activeTab = await page.locator('button[name="active"]');
+    await expect(activeTab).not.toBeDisabled();
+
+    const doneTab = await page.locator('button[name="done"]');
+    await expect(doneTab).not.toBeDisabled();
+
+    await doneTab.click();
+    await expect(allTab).not.toBeDisabled();
+    await expect(doneTab).toBeDisabled();
+    await expect(ticket).not.toBeAttached();
+
+    await activeTab.click();
+    await expect(activeTab).toBeDisabled();
+    await expect(doneTab).not.toBeDisabled();
+    await expect(ticket).toBeAttached();
+
+    const checkbox = await page.locator('.list-item .list-item-done + label');
+    await checkbox.click();
+    await expect(ticket).not.toBeAttached();
+
+    await doneTab.click();
+    await expect(ticket).toBeAttached();
+  });
+
   test('Update + Error', async ({ page }) => {
     await createRequestInterceptor(page, data);
     await page.goto('/', { waitUntil: 'networkidle' });
