@@ -56,25 +56,29 @@ const data = [
   },
 ];
 
+async function addTicket(page) {
+  const plus = await page.locator('.title-container-plus-content');
+  await plus.click();
+  const modal = await page.locator('div.modal');
+  await expect(modal).not.toHaveCount(0);
+
+  const save = await page.locator('button.save');
+  await expect(save).toBeDisabled();
+
+  const name = await page.locator('#title');
+  await name.fill('A ticket title');
+  const description = await page.locator('#description');
+  await description.fill('A description for a ticket');
+  await save.click();
+  await expect(modal).toHaveCount(0);
+}
+
 test.describe('E2E', async () => {
   test('Add', async ({ page }) => {
     await createRequestInterceptor(page);
     await page.goto('/', { waitUntil: 'networkidle' });
 
-    const plus = await page.locator('.title-container-plus-content');
-    await plus.click();
-    const modal = await page.locator('div.modal');
-    await expect(modal).not.toHaveCount(0);
-
-    const save = await page.locator('button.save');
-    await expect(save).toBeDisabled();
-
-    const name = await page.locator('#title');
-    await name.fill('A ticket title');
-    const description = await page.locator('#description');
-    await description.fill('A description for a ticket');
-    await save.click();
-    await expect(modal).toHaveCount(0);
+    await addTicket(page);
 
     const ticket = await page.locator('.list-item .list-item-title');
     await expect(ticket).toHaveText('A ticket title');
@@ -174,5 +178,53 @@ test.describe('E2E', async () => {
     await expect(await page.locator('.list-item .list-item-title')).toHaveCount(
       0,
     );
+  });
+
+  test('Delete all', async ({ page }) => {
+    await createRequestInterceptor(page, data);
+    await page.goto('/', { waitUntil: 'networkidle' });
+
+    const removeAll = await page.locator(
+      'button.title-container-clear-content',
+    );
+    await expect(removeAll).toBeDisabled();
+
+    const switcherActiveButton = await page.locator('button[name="active"]');
+    await expect(switcherActiveButton).not.toBeDisabled();
+    await expect(switcherActiveButton).toHaveText('Active (1)');
+
+    const switcherDoneButton = await page.locator('button[name="done"]');
+    await expect(switcherDoneButton).not.toBeDisabled();
+    await expect(switcherDoneButton).toHaveText('Done (0)');
+
+    const checkbox = await page.locator('.list-item .list-item-done + label');
+    await checkbox.click();
+    await expect(removeAll).not.toBeDisabled();
+    await expect(switcherDoneButton).toHaveText('Done (1)');
+    await expect(switcherActiveButton).toHaveText('Active (0)');
+
+    await addTicket(page);
+
+    const checkbox2 = await page.locator(
+      '.list-item .list-item-done:not(:checked) + label',
+    );
+    await expect(switcherActiveButton).toHaveText('Active (1)');
+
+    await checkbox2.click();
+    await expect(switcherDoneButton).toHaveText('Done (2)');
+    await expect(switcherActiveButton).toHaveText('Active (0)');
+
+    await removeAll.click();
+    const modal = await page.locator('div.modal');
+    await expect(modal).toContainText('Do you want to remove 2 tickets?');
+    //
+    const deleteButton = await page.locator('button.delete');
+    await deleteButton.click();
+    await expect(modal).toHaveCount(0);
+    await expect(await page.locator('.list-item .list-item-title')).toHaveCount(
+      0,
+    );
+    await expect(switcherActiveButton).toHaveText('Active (0)');
+    await expect(switcherDoneButton).toHaveText('Done (0)');
   });
 });
