@@ -1,43 +1,21 @@
-import { useStore } from '../store.js';
+import { useContext } from 'react';
+import { SwitcherButton } from './SwitcherButton.jsx';
+import { OptimisticContext } from '../context.jsx';
 
 function ViewModeSwitcher() {
-  const mode = useStore((store) => store.mode);
-  const setMode = useStore((store) => store.setMode);
+  const { optimisticList } = useContext(OptimisticContext);
+
+  const quantities = {
+    all: optimisticList.length,
+    active: optimisticList.filter((item) => item.done !== true).length,
+    done: optimisticList.filter((item) => item.done === true).length,
+  };
+
   return (
     <div className="footer-switcher-buttons">
-      <button
-        name="all"
-        className={
-          mode === 'all' ? 'footer-button-active' : 'footer-button-inactive'
-        }
-        type="button"
-        onClick={() => setMode('all')}
-        disabled={mode === 'all'}
-      >
-        All
-      </button>
-      <button
-        name="active"
-        className={
-          mode === 'active' ? 'footer-button-active' : 'footer-button-inactive'
-        }
-        type="button"
-        onClick={() => setMode('active')}
-        disabled={mode === 'active'}
-      >
-        Active
-      </button>
-      <button
-        name="done"
-        className={
-          mode === 'done' ? 'footer-button-active' : 'footer-button-inactive'
-        }
-        type="button"
-        onClick={() => setMode('done')}
-        disabled={mode === 'done'}
-      >
-        Done
-      </button>
+      <SwitcherButton buttonMode="all" itemsQuantity={quantities.all} />
+      <SwitcherButton buttonMode="active" itemsQuantity={quantities.active} />
+      <SwitcherButton buttonMode="done" itemsQuantity={quantities.done} />
     </div>
   );
 }
