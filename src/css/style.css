@@ -89,25 +89,16 @@ a, a:visited {
 .compact {
   height: 100%;
   padding: 0;
+  border: 0;
 }
 
 .compact > svg {
   display: block;
-}
-
-@supports (aspect-ratio: 1) {
-  .compact {
-    aspect-ratio: 1;
-  }
-}
-
-@supports not (aspect-ratio: 1) {
-  .compact > svg {
-    width: calc(var(--padding) + calc(var(--small-font-size) * var(--line-height)));
-  }
+  width: calc(var(--padding) + calc(var(--small-font-size) * var(--line-height)));
 }
 
 .title-container-tip {
+  flex-shrink: 0;
   margin: 0;
   text-align: left;
   cursor: pointer;
