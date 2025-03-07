@@ -21,7 +21,7 @@ function Row({ id, name, description, done, date }) {
             id={`spoiler-${id}`}
             className="spoiler-checkbox"
           />
-          <label htmlFor={`spoiler-${id}`}>
+          <label htmlFor={`spoiler-${id}`} title="Show / hide description">
             <div className="list-item-title">{name}</div>
             {isCompact ? <div className="list-item-date">{date}</div> : null}
             <RowDescription>{description}</RowDescription>
@@ -37,6 +37,7 @@ function Row({ id, name, description, done, date }) {
       {isCompact ? null : <td className="list-item-date">{date}</td>}
       <td className="list-item-actions">
         <button
+          title="Update ticket"
           type="button"
           onClick={() =>
             setModal({
@@ -48,6 +49,7 @@ function Row({ id, name, description, done, date }) {
           <Pen className="list-item-actions-update" />
         </button>
         <button
+          title="Delete ticket"
           type="button"
           onClick={() => setModal({ type: 'delete', data: { id } })}
         >

@@ -52,7 +52,10 @@ function Checkbox({ id, done }) {
         checked={optimisticDone}
         onChange={handleChange}
       />
-      <label htmlFor={id}></label>
+      <label
+        title={`Mark as ${optimisticDone ? 'undone' : 'done'}`}
+        htmlFor={id}
+      ></label>
     </td>
   );
 }

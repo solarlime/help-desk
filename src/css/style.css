@@ -70,10 +70,41 @@ a, a:visited {
 
 .title-container {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   width: var(--content-width);
   margin: 0 auto var(--small-padding) auto;
+}
+
+.title-container-rest {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+.title-container-rest > *:not(:last-child) {
+  margin-right: var(--small-padding);
+}
+
+.compact {
+  height: 100%;
+  padding: 0;
+}
+
+.compact > svg {
+  display: block;
+}
+
+@supports (aspect-ratio: 1) {
+  .compact {
+    aspect-ratio: 1;
+  }
+}
+
+@supports not (aspect-ratio: 1) {
+  .compact > svg {
+    width: calc(var(--padding) + calc(var(--small-font-size) * var(--line-height)));
+  }
 }
 
 .title-container-tip {
@@ -159,6 +190,7 @@ a, a:visited {
   overflow: hidden;
 }
 
+.title-container-clear,
 .title-container-plus {
   display: flex;
   justify-content: flex-end;
@@ -175,6 +207,7 @@ button,
   font-family: inherit;
   font-size: var(--small-font-size);
   line-height: var(--line-height);
+  text-align: center;
   cursor: pointer;
 }
 
@@ -468,6 +501,7 @@ textarea::-webkit-scrollbar {
   flex-grow: 1;
 }
 
+.title-container-clear-content,
 .delete {
   color: crimson;
 }

@@ -1,14 +1,21 @@
+import { useContext } from 'react';
 import { useStore } from '../store';
+import { OptimisticContext } from '../context.jsx';
+import AddBox from '../../img/add_box.svg?react';
 
 function AddButton() {
+  const { isCompact } = useContext(OptimisticContext);
   const setModal = useStore((state) => state.setModal);
+  const name = 'Add new ticket';
+
   return (
     <button
-      className="title-container-plus-content"
+      title={name}
+      className={`title-container-plus-content ${isCompact ? 'compact' : ''}`}
       type="button"
       onClick={() => setModal({ type: 'create', data: null })}
     >
-      Add new ticket
+      {isCompact ? <AddBox /> : name}
     </button>
   );
 }
