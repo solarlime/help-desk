@@ -18,7 +18,7 @@ import { Delete } from './Delete.jsx';
  * - `Description` component: a text field to enter a new description or update
  *   an existing one.
  * - `Save` component: a button to save the changes.
- * - `Delete` component: a button to delete the item.
+ * - `Delete` component: a button to delete the item (or items).
  *
  * The component also sets up an event listener for keyup events to close the
  * modal window when the Escape key is pressed.
@@ -101,7 +101,11 @@ function Modal({ hasEscListener, setHasEscListener }) {
           noValidate
         >
           {modalType === 'delete' ? (
-            <label>Do you want to remove this ticket?</label>
+            Array.isArray(modalData.id) ? (
+              <label>{`Do you want to remove ${modalData.id.length} ticket${modalData.id.length > 1 ? 's' : ''}?`}</label>
+            ) : (
+              <label>Do you want to remove this ticket?</label>
+            )
           ) : (
             <>
               <Name ref={focusRef} />

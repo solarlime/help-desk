@@ -12,8 +12,8 @@ import { OptimisticContext } from '../context.jsx';
  * 'done', and 'date'. Each list item is rendered as a `Row` component.
  *
  * This component uses the `useStore` hook to get the list state and
- * the `useContext` hook to get the optimistic list state. If the
- * optimistic list is not empty, it renders the optimistic list.
+ * the `useContext` hook to get the displayed optimistic list state.
+ * If the displayed optimistic list is not empty, it is rendered.
  * Otherwise, it renders the list of items from the promise.
  *
  * @function List
@@ -23,7 +23,7 @@ import { OptimisticContext } from '../context.jsx';
 function List({ listPromise }) {
   const initialListItems = use(listPromise);
   const [initiated, setInitiated] = useState(false);
-  const { optimisticList } = useContext(OptimisticContext);
+  const { displayedOptimisticList } = useContext(OptimisticContext);
   const setList = useStore((store) => store.setList);
 
   useEffect(() => {
@@ -33,8 +33,8 @@ function List({ listPromise }) {
 
   return (
     <tbody className="list">
-      {(optimisticList.length || initiated
-        ? optimisticList
+      {(displayedOptimisticList.length || initiated
+        ? displayedOptimisticList
         : initialListItems
       ).map(({ id, name, description, done, date }) => {
         return (

@@ -21,6 +21,10 @@ This app is my first serious project. Originally it was written without any fram
     - after a period of inactivity if there are changes
     - regularly if there are changes and activity is permanent
     - immediately if the user leaves the page
+- 🆕 Has view modes: filter tickets by status
+- 🆕 Counts the number of tickets
+- 🆕 Can clear done tickets in two clicks
+- Has a tip for new users
 - Readable on mobiles, even on small screens
 - Supports all modern browsers on desktop, Android & iOS 12+
 - Tested with Playwright ([previously](https://github.com/solarlime/help-desk/tree/legacy/) used Puppeteer)

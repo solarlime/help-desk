@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware';
 
 const listInitialState = {
   list: [],
+  mode: 'all',
 };
 
 const modalInitialState = {
@@ -29,7 +30,8 @@ const requestInitialState = {
 
 const createListSlice = (set) => ({
   ...listInitialState,
-  setList: (list) => set((state) => ({ list })),
+  setMode: (mode) => set((state) => ({ ...state, mode })),
+  setList: (list) => set((state) => ({ ...state, list })),
 });
 
 const createModalSlice = (set) => ({

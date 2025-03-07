@@ -6,13 +6,13 @@ import { saveChanges } from '../../utils/saveChanges.js';
 /**
  * A React component that represents a 'Delete' button in the modal window.
  *
- * When clicked, it removes an item with a specific `id` from the optimistic list
+ * When clicked, it removes an item (or items) with a specific `id` from the optimistic list
  * and updates the state of the list by invoking the `deleteItems` method.
  * The changes are then saved to the server. The modal is closed after the delete
  * operation is initiated.
  *
  * @param {object} props - The properties of the component.
- * @param {string} props.id - The id of the item to be deleted.
+ * @param {string | string[]} props.id - The id / ids array of the item(s) to be deleted.
  * @returns {ReactElement} - The rendered component.
  */
 function Delete({ id }) {
@@ -27,8 +27,15 @@ function Delete({ id }) {
   const handleClick = () => {
     setModal({ type: 'none', data: null });
     startTransition(async () => {
-      setOptimisticList(optimisticList.filter((item) => item.id !== id));
-      deleteItems({ id });
+      if (Array.isArray(id)) {
+        setOptimisticList(
+          optimisticList.filter((item) => !id.includes(item.id)),
+        );
+        id.forEach((itemId) => deleteItems({ id: itemId }));
+      } else {
+        setOptimisticList(optimisticList.filter((item) => item.id !== id));
+        deleteItems({ id });
+      }
       await saveChanges(list, setList);
     });
   };
