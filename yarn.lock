@@ -2240,12 +2240,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^22.10.6":
+"@types/node@npm:*":
   version: 22.10.6
   resolution: "@types/node@npm:22.10.6"
   dependencies:
     undici-types: "npm:~6.20.0"
   checksum: 10/ac93c9b6337ddb70176abade1ca4cdec24cde93cfc19023f3e001d80cb42f1d3c2487dd1626ce016985953319de30528d9e73dc5c6e2e28be9eaa9ec0237fc1d
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^22.13.17":
+  version: 22.13.17
+  resolution: "@types/node@npm:22.13.17"
+  dependencies:
+    undici-types: "npm:~6.20.0"
+  checksum: 10/b2bb532c6c7a8e8f87a49b3d2f7d5372a5c79f3b015522cfb116c974a89e438b40e03a1d46398871cba119085b5efd2e02e5acdbfc7596d6c60142f77ae9547c
   languageName: node
   linkType: hard
 
@@ -5204,7 +5213,7 @@ __metadata:
     "@playwright/test": "npm:^1.49.1"
     "@svgr/webpack": "npm:^8.1.0"
     "@swc/core": "npm:^1.10.7"
-    "@types/node": "npm:^22.10.6"
+    "@types/node": "npm:^22.13.17"
     clean-webpack-plugin: "npm:^4.0.0"
     core-js: "npm:^3.40.0"
     css-loader: "npm:^7.1.2"
