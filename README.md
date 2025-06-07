@@ -10,17 +10,19 @@ It's a simple help desk with a list of tickets. This branch contains a stable ve
 This app is my first serious project. Originally it was written without any framework and did all changes with manipulating DOM. Code used classes for storing global values and was quite complicated, so I decided to rewrite it.
 
 ### Features:
+
 - Possible to create, update, and delete tickets
 - Stores data in MongoDB
 - Uses a [server](https://github.com/solarlime/crud-mongo-server) to access data
 - 🆕 Uses a global state provided by Zustand
 - 🆕 Rendered with React
+- 🆕 Typed with TypeScript
 - 🆕 Uses optimistic updates for a smooth user experience
 - 🆕 Groups changes into batches for better performance
 - 🆕 Sends batches:
-    - after a period of inactivity if there are changes
-    - regularly if there are changes and activity is permanent
-    - immediately if the user leaves the page
+  - after a period of inactivity if there are changes
+  - regularly if there are changes and activity is permanent
+  - immediately if the user leaves the page
 - 🆕 Has view modes: filter tickets by status
 - 🆕 Counts the number of tickets
 - 🆕 Can clear done tickets in two clicks

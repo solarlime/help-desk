@@ -1,18 +1,33 @@
 import js from '@eslint/js';
 import globals from 'globals';
+import { configs as tsEslintConfigs } from 'typescript-eslint';
+import { defineConfig } from 'eslint/config';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintPluginImportX from 'eslint-plugin-import-x';
+import { importX } from 'eslint-plugin-import-x';
 
-export default [
-  { ignores: ['dist', '.yarn', 'node_modules', '.*.cjs', '.*.mjs'] },
+export default defineConfig([
+  tsEslintConfigs.recommended,
   {
-    files: ['**/*.{js,jsx}'],
+    ignores: ['dist', '.yarn', 'node_modules'],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    plugins: {
+      js,
+      react,
+      'import-x': importX,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    extends: [
+      'js/recommended',
+      'import-x/flat/recommended',
+      'import-x/flat/typescript',
+    ],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: { ...globals.browser, ...globals.jest, ...globals.node },
+      globals: { ...globals.browser, ...globals.node },
       parserOptions: {
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
@@ -20,11 +35,6 @@ export default [
       },
     },
     settings: { react: { version: '19' } },
-    plugins: {
-      react,
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-    },
     rules: {
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
@@ -39,8 +49,9 @@ export default [
       'react/prop-types': 'off',
       'no-unused-vars': 'warn',
       'import-x/no-unresolved': ['error', { ignore: ['\\.svg\\?react$'] }],
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/ban-ts-comment': 'warn',
     },
   },
-  eslintPluginImportX.flatConfigs.recommended,
   eslintConfigPrettier,
-];
+]);
