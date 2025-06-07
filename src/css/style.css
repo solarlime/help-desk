@@ -52,7 +52,8 @@ body > *:not(:last-child) {
   margin-bottom: 2px;
 }
 
-a, a:visited {
+a,
+a:visited {
   color: green;
   text-decoration: none;
   cursor: pointer;
@@ -94,7 +95,9 @@ a, a:visited {
 
 .compact > svg {
   display: block;
-  width: calc(var(--padding) + calc(var(--small-font-size) * var(--line-height)));
+  width: calc(
+    var(--padding) + calc(var(--small-font-size) * var(--line-height))
+  );
 }
 
 .title-container-tip {
@@ -219,7 +222,8 @@ button:disabled {
   color: green;
 }
 
-.list-wrapper, .list {
+.list-wrapper,
+.list {
   display: grid;
   width: 100%;
   height: auto;

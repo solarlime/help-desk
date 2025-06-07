@@ -8,7 +8,7 @@
       "react": {
         "runtime": "automatic"
       }
-    },
+    }
   },
   "env": {
     "coreJs": "3.39",

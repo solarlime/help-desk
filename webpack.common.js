@@ -9,7 +9,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default {
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -18,7 +18,7 @@ export default {
     port: 9000,
   },
   resolve: {
-    extensions: ['.jsx', '...'],
+    extensions: ['.jsx', '.tsx', '.ts', '...'],
   },
   module: {
     rules: [
@@ -28,6 +28,11 @@ export default {
         use: {
           loader: 'swc-loader',
         },
+      },
+      {
+        test: /\.(m?ts|tsx)$/,
+        exclude: /(node_modules)/,
+        use: ['swc-loader', 'ts-loader'],
       },
       // uuid developers don't transpile their code
       {
@@ -56,7 +61,7 @@ export default {
       },
       {
         test: /\.svg$/i,
-        issuer: /\.jsx?$/,
+        issuer: /\.tsx?$/,
         resourceQuery: /react/, // *.svg?react
         use: ['@svgr/webpack'],
       },
