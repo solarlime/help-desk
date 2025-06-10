@@ -1,434 +1,442 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 :root {
-    --done-width: 30px;
-    --date-width: 100px;
-    --actions-width: 70px;
-    --done: 20px;
+  --done-width: 30px;
+  --date-width: 100px;
+  --actions-width: 70px;
+  --done: 20px;
 }
 
 html {
-    font-family: "Inter", Arial, sans-serif;
-    font-size: 16px;
-    word-wrap: break-word;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  word-wrap: break-word;
 }
 
 body {
-    min-width: 320px;
-    margin: 0;
+  min-width: 320px;
+  margin: 0;
 }
 
 .header-title {
-    display: block;
-    box-sizing: border-box;
-    padding-bottom: 10px;
-    text-align: center;
+  display: block;
+  box-sizing: border-box;
+  padding-bottom: 10px;
+  text-align: center;
 }
 
 .title-container {
-    display: flex;
-    align-items: center;
-    width: 80%;
-    margin: 0 auto 10px auto;
+  display: flex;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto 10px auto;
 }
 
-.title-container-title, .title-container-tip, .title-container-plus {
-    width: 33%;
+.title-container-title,
+.title-container-tip,
+.title-container-plus {
+  width: 33%;
 }
 
 .title-container-tip {
-    margin: 0 0.5%;
-    text-align: center;
-    color: #bbbbbb;
-    animation: blink linear 2s alternate infinite;
+  margin: 0 0.5%;
+  text-align: center;
+  color: #bbbbbb;
+  animation: blink linear 2s alternate infinite;
 }
 
 @keyframes blink {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .tip-container {
-    display: block;
-    width: 80%;
-    margin: 0 auto;
-    padding: 0;
-    border: 1px solid #bbbbbb;
-    text-align: center;
-    box-sizing: border-box;
-    overflow: hidden;
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid #bbbbbb;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .tip {
-    display: block;
-    padding: 10px;
-    margin: 0;
+  display: block;
+  padding: 10px;
+  margin: 0;
 }
 
 .green {
-    color: green;
+  color: green;
 }
 
 #tip:checked ~ .title-container .title-container-tip {
-    animation: none;
+  animation: none;
 }
 
 #tip:checked ~ .title-container .title-container-tip .hide {
-    display: inline;
+  display: inline;
 }
 
 #tip:checked ~ .title-container .title-container-tip .show {
-    display: none;
+  display: none;
 }
 
 #tip:not(:checked) ~ .title-container .title-container-tip .hide {
-    display: none;
+  display: none;
 }
 
 #tip:not(:checked) ~ .title-container .title-container-tip .show {
-    display: inline;
+  display: inline;
 }
 
 #tip:not(:checked) ~ .tip-container {
-    max-height: 0;
-    margin-bottom: 0;
-    border-width: 0;
-    transition: all ease-in 0.25s;
+  max-height: 0;
+  margin-bottom: 0;
+  border-width: 0;
+  transition: all ease-in 0.25s;
 }
 
 #tip:checked ~ .tip-container {
-    max-height: 30vh;
-    margin-bottom: 10px;
-    border-width: 1px;
-    transition: all ease-out 0.25s;
+  max-height: 30vh;
+  margin-bottom: 10px;
+  border-width: 1px;
+  transition: all ease-out 0.25s;
 }
 
 .title-container-plus {
-    text-align: right;
-    cursor: pointer;
-    color: green;
+  text-align: right;
+  cursor: pointer;
+  color: green;
 }
 
 .list {
-    width: 80%;
-    height: auto;
-    padding: 0;
-    margin: 0 auto;
-    border: 1px solid crimson;
-    box-sizing: border-box;
+  width: 80%;
+  height: auto;
+  padding: 0;
+  margin: 0 auto;
+  border: 1px solid crimson;
+  box-sizing: border-box;
 }
 
 .list:first-child {
-    border-bottom: 0;
+  border-bottom: 0;
 }
 
 div.list {
-    border-bottom: 0;
+  border-bottom: 0;
 }
 
 .list-item {
-    font-size: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style: none;
-    padding: 10px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 10px;
 }
 
 .list-item-done-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: var(--done);
-    height: var(--done);
-    padding-right: calc(var(--done-width) - var(--done));
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: var(--done);
+  height: var(--done);
+  padding-right: calc(var(--done-width) - var(--done));
 }
 
 .list-item-done {
-    width: var(--done);
-    height: var(--done);
+  width: var(--done);
+  height: var(--done);
 }
 
 /* Thanks for GeoffreyCrofte for custom checkboxes: https://codepen.io/GeoffreyCrofte/pen/BiHzp */
 /* base for label styling */
-[type="checkbox"]:not(:checked),
-[type="checkbox"]:checked {
-    position: absolute;
-    left: -9999px;
+[type='checkbox']:not(:checked),
+[type='checkbox']:checked {
+  position: absolute;
+  left: -9999px;
 }
-[type="checkbox"]:not(:checked) + label:not([id="tip-label"]),
-[type="checkbox"]:checked + label:not([id="tip-label"]) {
-    position: relative;
-    cursor: pointer;
-    width: var(--done);
-    height: var(--done);
+[type='checkbox']:not(:checked) + label:not([id='tip-label']),
+[type='checkbox']:checked + label:not([id='tip-label']) {
+  position: relative;
+  cursor: pointer;
+  width: var(--done);
+  height: var(--done);
 }
 
 /* checkbox aspect */
-[type="checkbox"]:not(:checked) + label:not([id="tip-label"]):before,
-[type="checkbox"]:checked + label:not([id="tip-label"]):before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: var(--done);
-    height: var(--done);
-    border: 1px solid #ccc;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
-    box-sizing: border-box;
+[type='checkbox']:not(:checked) + label:not([id='tip-label']):before,
+[type='checkbox']:checked + label:not([id='tip-label']):before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--done);
+  height: var(--done);
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 /* checked mark aspect */
-[type="checkbox"]:not(:checked) + label:not([id="tip-label"]):after,
-[type="checkbox"]:checked + label:not([id="tip-label"]):after {
-    content: '\2713\0020';
-    position: absolute;
-    top: 1px;
-    left: 2px;
-    font-size: 1.35rem;
-    line-height: 0.8;
-    color: green;
-    transition: all .2s;
+[type='checkbox']:not(:checked) + label:not([id='tip-label']):after,
+[type='checkbox']:checked + label:not([id='tip-label']):after {
+  content: '\2713\0020';
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  font-size: 1.35rem;
+  line-height: 0.8;
+  color: green;
+  transition: all 0.2s;
 }
 /* checked mark aspect changes */
-[type="checkbox"]:not(:checked) + label:not([id="tip-label"]):after {
-    opacity: 0;
-    transform: scale(0);
+[type='checkbox']:not(:checked) + label:not([id='tip-label']):after {
+  opacity: 0;
+  transform: scale(0);
 }
-[type="checkbox"]:checked + label:not([id="tip-label"]):after {
-    opacity: 1;
-    transform: scale(1);
+[type='checkbox']:checked + label:not([id='tip-label']):after {
+  opacity: 1;
+  transform: scale(1);
 }
 /* disabled checkbox */
-[type="checkbox"]:disabled:not(:checked) + label:not([id="tip-label"]):before,
-[type="checkbox"]:disabled:checked + label:not([id="tip-label"]):before {
-    box-shadow: none;
-    border-color: #bbb;
-    background-color: #ddd;
+[type='checkbox']:disabled:not(:checked) + label:not([id='tip-label']):before,
+[type='checkbox']:disabled:checked + label:not([id='tip-label']):before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #ddd;
 }
-[type="checkbox"]:disabled:checked + label:not([id="tip-label"]):after {
-    color: #999;
+[type='checkbox']:disabled:checked + label:not([id='tip-label']):after {
+  color: #999;
 }
-[type="checkbox"]:disabled + label:not([id="tip-label"]) {
-    color: #aaa;
-}
-
-[type="checkbox"]:checked + label:not([id="tip-label"]):hover:before {
-    border: 1px solid crimson;
+[type='checkbox']:disabled + label:not([id='tip-label']) {
+  color: #aaa;
 }
 
-[type="checkbox"]:not(:checked) + label:not([id="tip-label"]):hover:before {
-    border: 1px solid green;
+[type='checkbox']:checked + label:not([id='tip-label']):hover:before {
+  border: 1px solid crimson;
+}
+
+[type='checkbox']:not(:checked) + label:not([id='tip-label']):hover:before {
+  border: 1px solid green;
 }
 
 .list-item-ticket {
-    width: calc(100% - var(--done-width) - var(--date-width) - var(--date-width));
-    display: flex;
-    flex-direction: column;
+  width: calc(100% - var(--done-width) - var(--date-width) - var(--date-width));
+  display: flex;
+  flex-direction: column;
 }
 
 .list-item-description {
-    color: darkgray;
-    font-size: 0.8rem;
+  color: darkgray;
+  font-size: 0.8rem;
 }
 
 .list-item-date {
-    width: var(--date-width);
+  width: var(--date-width);
 }
 
 .list-item-actions {
-    font-size: 1rem;
-    display: flex;
-    flex-wrap: nowrap;
-    width: var(--actions-width);
-    justify-content: flex-end;
+  font-size: 1rem;
+  display: flex;
+  flex-wrap: nowrap;
+  width: var(--actions-width);
+  justify-content: flex-end;
 }
 
 ul.list .list-item-actions {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
-.list-item-actions-update, .list-item-actions-delete {
-    width: var(--done);
-    height: var(--done);
-    cursor: pointer;
+.list-item-actions-update,
+.list-item-actions-delete {
+  width: var(--done);
+  height: var(--done);
+  cursor: pointer;
 }
 
 .list-item-actions-update {
-    fill: green;
-    margin-right: 5px;
+  fill: green;
+  margin-right: 5px;
 }
 
 .list-item-actions-delete {
-    fill: crimson;
+  fill: crimson;
 }
 
 .modal-container {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(102, 102, 102, 0.5);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(102, 102, 102, 0.5);
 }
 
 .modal {
-    display: flex;
-    justify-content: center;
-    min-width: 256px;
-    width: 60%;
-    max-width: 400px;
-    height: auto;
-    padding: 20px 0;
-    border: 1px solid crimson;
-    background: mistyrose;
+  display: flex;
+  justify-content: center;
+  min-width: 256px;
+  width: 60%;
+  max-width: 400px;
+  height: auto;
+  padding: 20px 0;
+  border: 1px solid crimson;
+  background: mistyrose;
 }
 
 .wrapper {
-    width: 270px;
-    height: 300px;
-    object-fit: contain;
-    overflow: hidden;
+  width: 270px;
+  height: 300px;
+  object-fit: contain;
+  overflow: hidden;
 }
 
 .modal-dancer {
-    background: white;
-    opacity: 0.7;
+  background: white;
+  opacity: 0.7;
 }
 
 .dancer {
-    width: 300px;
-    height: 300px;
-    text-align: center;
+  width: 300px;
+  height: 300px;
+  text-align: center;
 }
 
-
-#add-and-update, #delete {
-    width: 80%;
+#add-and-update,
+#delete {
+  width: 80%;
 }
 
 form label {
-    width: 100%;
-    display: block;
-    box-sizing: border-box;
-    padding: 10px 0;
-    margin: 0 auto;
-    text-align: center;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 0;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .error {
-    display: block;
-    width: 100%;
-    font-size: 0.8rem;
+  display: block;
+  width: 100%;
+  font-size: 0.8rem;
 }
 
 .add {
-    padding: 0;
+  padding: 0;
 }
 
-.add, .update {
-    text-align: left;
+.add,
+.update {
+  text-align: left;
 }
 
-#title, #description {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 5px;
-    border: 1px solid grey;
-    font-family: inherit;
-    font-size: 0.8rem;
+#title,
+#description {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid grey;
+  font-family: inherit;
+  font-size: 0.8rem;
 }
 
-#title:focus, #description:focus {
-    border: 1px solid crimson;
+#title:focus,
+#description:focus {
+  border: 1px solid crimson;
 }
 
 #description {
-    height: 100px;
+  height: 100px;
 }
 
 textarea {
-    resize: none;
-    scrollbar-width: none;
+  resize: none;
+  scrollbar-width: none;
 }
 
 textarea::-webkit-scrollbar {
-    width: 0;
+  width: 0;
 }
 
 .button-container {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 button {
-    padding: 5px 0;
-    border: 1px solid rgb(224, 224, 224);
-    border-radius: 4px;
-    background-color: rgb(246, 245, 244);
-    color: black;
+  padding: 5px 0;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 4px;
+  background-color: rgb(246, 245, 244);
+  color: black;
 }
 
 button:hover {
-    background-color: rgb(246, 245, 244);
+  background-color: rgb(246, 245, 244);
 }
 
 button:disabled {
-    background-color: rgb(246, 245, 244);
-    color: rgb(146, 149, 149);
+  background-color: rgb(246, 245, 244);
+  color: rgb(146, 149, 149);
 }
 
-.save, .cancel, .delete {
-    width: auto;
-    flex-grow: 1;
-    cursor: pointer;
+.save,
+.cancel,
+.delete {
+  width: auto;
+  flex-grow: 1;
+  cursor: pointer;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .spoiler {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .spoiler .list-item-title {
-    color: green;
+  color: green;
 }
 
 .no-spoiler {
-    padding-top: 20px;
+  padding-top: 20px;
 }
 
 @media (max-width: 500px) {
-    :root {
-        --done-width: 25px;
-        --date-width: 55px;
-        --actions-width: 40px;
-        --done: 16px;
-    }
+  :root {
+    --done-width: 25px;
+    --date-width: 55px;
+    --actions-width: 40px;
+    --done: 16px;
+  }
 
-    html {
-        font-size: 10px;
-    }
+  html {
+    font-size: 10px;
+  }
 
-    /* checked mark aspect */
-    [type="checkbox"]:not(:checked) + label:not([id="tip-label"]):after,
-    [type="checkbox"]:checked + label:not([id="tip-label"]):after {
-        top: 2px;
-        left: 3px;
-        font-size: 1.35rem;
-    }
+  /* checked mark aspect */
+  [type='checkbox']:not(:checked) + label:not([id='tip-label']):after,
+  [type='checkbox']:checked + label:not([id='tip-label']):after {
+    top: 2px;
+    left: 3px;
+    font-size: 1.35rem;
+  }
 
-    .modal {
-        font-size: 16px;
-    }
+  .modal {
+    font-size: 16px;
+  }
 }
