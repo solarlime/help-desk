@@ -6,7 +6,12 @@
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier:check": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "check": "yarn lint:check && yarn prettier:check",
+    "fix": "yarn lint:fix && yarn prettier:fix",
     "test": "yarn playwright test"
   },
   "type": "module",
