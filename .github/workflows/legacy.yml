@@ -33,8 +33,11 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Linting & Testing
-        run: yarn run lint && yarn run test
+      - name: Checking code
+        run: yarn run check
+
+      - name: Testing
+        run: yarn run test
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest

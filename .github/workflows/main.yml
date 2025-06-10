@@ -36,8 +36,11 @@ jobs:
       - name: Install Playwright Browsers
         run: yarn playwright install --with-deps
 
-      - name: Linting & Testing
-        run: yarn run lint && yarn run test
+      - name: Checking code
+        run: yarn run check
+
+      - name: Testing
+        run: yarn run test
         env:
           HOST: http://localhost
           DEBOUNCE_TIME: 10000
