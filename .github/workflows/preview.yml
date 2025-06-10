@@ -6,9 +6,9 @@ name: CI (preview)
 on:
   # Triggers the workflow on push or pull request events but only for the preview branch
   push:
-    branches: [ preview ]
+    branches: [preview]
   pull_request:
-    branches: [ preview ]
+    branches: [preview]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -38,8 +38,11 @@ jobs:
       - name: Install Playwright Browsers
         run: yarn playwright install --with-deps
 
-      - name: Linting & Testing
-        run: yarn run lint && yarn run test
+      - name: Checking code
+        run: yarn run check
+
+      - name: Testing
+        run: yarn run test
         env:
           HOST: http://localhost
           DEBOUNCE_TIME: 10000
