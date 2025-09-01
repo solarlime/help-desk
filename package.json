@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/solarlime/help-desk#readme",
   "devDependencies": {
-    "@eslint/js": "^9.28.0",
+    "@eslint/js": "^9.34.0",
     "@playwright/test": "^1.52.0",
     "@svgr/webpack": "^8.1.0",
     "@swc/core": "^1.10.7",
@@ -40,7 +40,7 @@
     "csso": "^5.0.5",
     "dotenv": "^16.4.7",
     "dotenv-webpack": "^8.1.0",
-    "eslint": "^9.28.0",
+    "eslint": "^9.34.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^4.4.3",
     "eslint-plugin-import-x": "^4.15.1",
